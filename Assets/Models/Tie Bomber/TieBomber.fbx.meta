@@ -1,0 +1,214 @@
+fileFormatVersion: 2
+guid: e7be0f15144566443aac7e6d4b94e40e
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: tie_bomber:TB_WEAPO01
+    100002: tie_bomber:TBCOCKPI01
+    100004: tie_bomber:TBFRONT_01
+    100006: tie_bomber:TBGLASS01
+    100008: tie_bomber:TBION_TH01
+    100010: tie_bomber:TBMIDDLE01
+    100012: tie_bomber:TBSENSOR01
+    100014: tie_bomber:TBSOLAR_01
+    100016: tie_bomber:TBSOLAR_02
+    100018: tie_bomber:TBTOP_BO01
+    100020: tie_bomber:TBTOP_BO02
+    100022: tie_bomber:TBWEAPON01
+    100024: tie_bomber:TBWINDOW01
+    100026: tie_bomber:TBWING_A01
+    100028: tie_bomber:TBWING_A02
+    100030: tie_bomber:TBWING_B01
+    100032: tie_bomber:TBWING_B02
+    100034: tie_bomber:TBWING_L01
+    100036: tie_bomber:TBWING_R01
+    100038: tie_bomber:TBWING_T01
+    100040: tie_bomber:TBWING_T02
+    100042: tie_bomber:TORUS01
+    100044: tie_bomber:TORUS02
+    100046: //RootNode
+    400000: tie_bomber:TB_WEAPO01
+    400002: tie_bomber:TBCOCKPI01
+    400004: tie_bomber:TBFRONT_01
+    400006: tie_bomber:TBGLASS01
+    400008: tie_bomber:TBION_TH01
+    400010: tie_bomber:TBMIDDLE01
+    400012: tie_bomber:TBSENSOR01
+    400014: tie_bomber:TBSOLAR_01
+    400016: tie_bomber:TBSOLAR_02
+    400018: tie_bomber:TBTOP_BO01
+    400020: tie_bomber:TBTOP_BO02
+    400022: tie_bomber:TBWEAPON01
+    400024: tie_bomber:TBWINDOW01
+    400026: tie_bomber:TBWING_A01
+    400028: tie_bomber:TBWING_A02
+    400030: tie_bomber:TBWING_B01
+    400032: tie_bomber:TBWING_B02
+    400034: tie_bomber:TBWING_L01
+    400036: tie_bomber:TBWING_R01
+    400038: tie_bomber:TBWING_T01
+    400040: tie_bomber:TBWING_T02
+    400042: tie_bomber:TORUS01
+    400044: tie_bomber:TORUS02
+    400046: //RootNode
+    2100000: tie_bomber_BLACK_MATTE1
+    2100002: tie_bomber_TIE_COLOR1
+    2100004: tie_bomber_TIE_TRIM1
+    2100006: tie_bomber_GLASS1
+    2100008: tie_bomber____Default3
+    2100010: tie_bomber____Default4
+    2100012: tie_bomber____Default6
+    2100014: tie_bomber_TIE_ION_RED1
+    2100016: tie_bomber_CHROME_GIFMAP1
+    2300000: tie_bomber:TB_WEAPO01
+    2300002: tie_bomber:TBCOCKPI01
+    2300004: tie_bomber:TBFRONT_01
+    2300006: tie_bomber:TBGLASS01
+    2300008: tie_bomber:TBION_TH01
+    2300010: tie_bomber:TBMIDDLE01
+    2300012: tie_bomber:TBSENSOR01
+    2300014: tie_bomber:TBSOLAR_01
+    2300016: tie_bomber:TBSOLAR_02
+    2300018: tie_bomber:TBTOP_BO01
+    2300020: tie_bomber:TBTOP_BO02
+    2300022: tie_bomber:TBWEAPON01
+    2300024: tie_bomber:TBWINDOW01
+    2300026: tie_bomber:TBWING_A01
+    2300028: tie_bomber:TBWING_A02
+    2300030: tie_bomber:TBWING_B01
+    2300032: tie_bomber:TBWING_B02
+    2300034: tie_bomber:TBWING_L01
+    2300036: tie_bomber:TBWING_R01
+    2300038: tie_bomber:TBWING_T01
+    2300040: tie_bomber:TBWING_T02
+    2300042: tie_bomber:TORUS01
+    2300044: tie_bomber:TORUS02
+    3300000: tie_bomber:TB_WEAPO01
+    3300002: tie_bomber:TBCOCKPI01
+    3300004: tie_bomber:TBFRONT_01
+    3300006: tie_bomber:TBGLASS01
+    3300008: tie_bomber:TBION_TH01
+    3300010: tie_bomber:TBMIDDLE01
+    3300012: tie_bomber:TBSENSOR01
+    3300014: tie_bomber:TBSOLAR_01
+    3300016: tie_bomber:TBSOLAR_02
+    3300018: tie_bomber:TBTOP_BO01
+    3300020: tie_bomber:TBTOP_BO02
+    3300022: tie_bomber:TBWEAPON01
+    3300024: tie_bomber:TBWINDOW01
+    3300026: tie_bomber:TBWING_A01
+    3300028: tie_bomber:TBWING_A02
+    3300030: tie_bomber:TBWING_B01
+    3300032: tie_bomber:TBWING_B02
+    3300034: tie_bomber:TBWING_L01
+    3300036: tie_bomber:TBWING_R01
+    3300038: tie_bomber:TBWING_T01
+    3300040: tie_bomber:TBWING_T02
+    3300042: tie_bomber:TORUS01
+    3300044: tie_bomber:TORUS02
+    4300000: tie_bomber:TBSOLAR_01
+    4300002: tie_bomber:TBWING_L01
+    4300004: tie_bomber:TBWINDOW01
+    4300006: tie_bomber:TBGLASS01
+    4300008: tie_bomber:TBMIDDLE01
+    4300010: tie_bomber:TBWEAPON01
+    4300012: tie_bomber:TBWING_A01
+    4300014: tie_bomber:TBWING_B01
+    4300016: tie_bomber:TBWING_T01
+    4300018: tie_bomber:TBWING_A02
+    4300020: tie_bomber:TBWING_T02
+    4300022: tie_bomber:TBFRONT_01
+    4300024: tie_bomber:TBION_TH01
+    4300026: tie_bomber:TB_WEAPO01
+    4300028: tie_bomber:TBSENSOR01
+    4300030: tie_bomber:TBTOP_BO01
+    4300032: tie_bomber:TBWING_B02
+    4300034: tie_bomber:TBWING_R01
+    4300036: tie_bomber:TBCOCKPI01
+    4300038: tie_bomber:TBSOLAR_02
+    4300040: tie_bomber:TORUS01
+    4300042: tie_bomber:TORUS02
+    4300044: tie_bomber:TBTOP_BO02
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.6
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
