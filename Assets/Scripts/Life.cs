@@ -1,6 +1,6 @@
 ﻿using SpaceChaos.AudioSystem;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace SpaceChaos {
     /// <summary>
@@ -28,7 +28,7 @@ namespace SpaceChaos {
 
         /// <summary>Label that shows the player life amount.</summary>
         [SerializeField]
-        private Text lifeLabel;
+        private TextMeshProUGUI lifeLabel;
 
         /// <summary>Score system related to the points made in game.</summary>
         [SerializeField]

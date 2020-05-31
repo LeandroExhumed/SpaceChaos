@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using TMPro;
+using UnityEngine;
 
 namespace SpaceChaos {
     /// <summary>
@@ -33,7 +33,7 @@ namespace SpaceChaos {
 
         /// <summary>Label that shows the player score.</summary>
         [SerializeField]
-        private Text scoreLabel;
+        private TextMeshProUGUI scoreLabel;
 
         /// <summary>
         /// Awakes this instance.
