@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace LeandroExhumed.SpaceChaos.Player
 {
-    public class MovementModel
+    public class MovementModel : IMovementModel
     {
         public event Action<bool> OnThrusterNeedChanged;
 
@@ -14,16 +14,22 @@ namespace LeandroExhumed.SpaceChaos.Player
         private readonly Transform transform;
         private readonly Rigidbody rigidbody;
 
+        public MovementModel (Transform transform, Rigidbody rigidbody)
+        {
+            this.transform = transform;
+            this.rigidbody = rigidbody;
+        }
+
         public void Steer (float direction)
         {
-            transform.Rotate(0, 0, -direction * speed * Time.deltaTime);
+            transform.Rotate(0, direction * speed * Time.deltaTime, 0);
         }
 
         public void Thrust (float input)
         {
             if (input > 0)
             {
-                rigidbody.AddForce(force * input * transform.up);
+                rigidbody.AddForce(force * input * transform.forward);
             }
 
             OnThrusterNeedChanged?.Invoke(rigidbody.velocity.magnitude >= thrusterMinVelocity);

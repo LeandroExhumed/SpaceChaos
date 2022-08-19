@@ -1,6 +1,7 @@
 using LeandroExhumed.SpaceChaos.Common.Damage;
 using System;
 using UnityEngine;
+using Zenject;
 
 namespace LeandroExhumed.SpaceChaos.Stage
 {
@@ -21,6 +22,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
         private IStageModel model;
         private IController controller;
 
+        [Inject]
         public void Constructor (IStageModel model, IController controller)
         {
             this.model = model;

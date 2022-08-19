@@ -6,6 +6,7 @@ namespace LeandroExhumed.SpaceChaos.Player
 {
     public class PlayerView : MonoBehaviour
     {
+        public event Action OnUpdate;
         public event Action OnInvencibleBlinkinhEffectOver;
 
         [SerializeField]
@@ -45,6 +46,11 @@ namespace LeandroExhumed.SpaceChaos.Player
         public void StartRespawnBlinking ()
         {
             StartCoroutine(RespawnBlinkingRoutine());
+        }
+
+        private void Update ()
+        {
+            OnUpdate?.Invoke();
         }
 
         private void SetRenderersActive (bool value)

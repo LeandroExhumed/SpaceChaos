@@ -9,6 +9,11 @@ namespace LeandroExhumed.SpaceChaos.Common.Damage
 
         public int InstanceID { get; private set; }
 
+        public Health (int instanceID)
+        {
+            InstanceID = instanceID;
+        }
+
         public void TakeDamage ()
         {
             OnDeath?.Invoke(this);
