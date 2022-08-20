@@ -2,7 +2,6 @@
 using LeandroExhumed.SpaceChaos.Common;
 using LeandroExhumed.SpaceChaos.Common.Damage;
 using LeandroExhumed.SpaceChaos.Input;
-using UnityEngine;
 
 namespace LeandroExhumed.SpaceChaos.Player
 {
@@ -11,7 +10,10 @@ namespace LeandroExhumed.SpaceChaos.Player
         private readonly IMovementModel movement;
         private readonly IShooterModel shooter;
         private readonly IDamageableModel health;
+        private readonly ILifeModel life;
+        private readonly IScoreModel score;
         private readonly PlayerView view;
+        private readonly PlayerUIView uiView;
         
         private readonly IInput input;
         private readonly AudioProvider audioProvider;
@@ -20,14 +22,20 @@ namespace LeandroExhumed.SpaceChaos.Player
             IMovementModel movement,
             IShooterModel shooter,
             IDamageableModel health,
+            ILifeModel life,
+            IScoreModel score,
             PlayerView view,
+            PlayerUIView uiView,
             IInput input,
             AudioProvider audioProvider)
         {
             this.movement = movement;
             this.shooter = shooter;
             this.health = health;
+            this.life = life;
+            this.score = score;
             this.view = view;
+            this.uiView = uiView;
             this.input = input;
             this.audioProvider = audioProvider;
         }
@@ -38,9 +46,27 @@ namespace LeandroExhumed.SpaceChaos.Player
             shooter.OnShot += HandleShot;
             health.OnDeath += HandleDeath;
             health.OnResurrection += HandleResurrection;
+            life.OnLifeChanged += HandleLifeChanged;
+            score.OnScoreChanged += HandleScoreChanged;
+            score.OnAdvancedScoreReached += HandleAdvancedScoreReached;
             view.OnInvencibleBlinkinhEffectOver += HandleInvencibleBlinkinhEffectOver;
             view.OnUpdate += HandleUpdate;
             input.OnShotPerformed += HandleShotPerformed;
+        }
+
+        private void HandleLifeChanged (int life)
+        {
+            uiView.SyncLife(life);
+        }
+
+        private void HandleScoreChanged (int points)
+        {
+            uiView.SyncScore(points);
+        }
+
+        private void HandleAdvancedScoreReached ()
+        {
+            life.AddLife();
         }
 
         private void HandleThrusterNeedChanged (bool needed)
@@ -91,6 +117,9 @@ namespace LeandroExhumed.SpaceChaos.Player
             shooter.OnShot -= HandleShot;
             health.OnDeath -= HandleDeath;
             health.OnResurrection -= HandleResurrection;
+            life.OnLifeChanged -= HandleLifeChanged;
+            score.OnScoreChanged -= HandleScoreChanged;
+            score.OnAdvancedScoreReached -= HandleAdvancedScoreReached;
             view.OnInvencibleBlinkinhEffectOver -= HandleInvencibleBlinkinhEffectOver;
             input.OnShotPerformed -= HandleShotPerformed;
         }

@@ -42,6 +42,8 @@ namespace LeandroExhumed.SpaceChaos.Player
             IMovementModel movement,
             IShooterModel shooter,
             IDamageableModel health,
+            ILifeModel life,
+            IScoreModel score,
             IController controller,
             IInput input)
         {
@@ -51,6 +53,9 @@ namespace LeandroExhumed.SpaceChaos.Player
             this.controller = controller;
 
             controller.Setup();
+
+            life.Initialize(3);
+            score.Initialize();
             input.SetActive(true);
         }
 

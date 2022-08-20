@@ -20,8 +20,7 @@ namespace LeandroExhumed.SpaceChaos
 
             Container.Bind<PlayerActions>().AsSingle();
 
-            Container.Bind<IAsteroindSpawningModel>().To<AsteroindSpawningModel>().AsSingle();
-            Container.Bind<ILifeModel>().To<LifeModel>().AsSingle();
+            Container.Bind<IAsteroindSpawningModel>().To<AsteroindSpawningModel>().AsSingle();            
             Container.Bind<IStageModel>().FromInstance(stage).AsSingle();
         }
     }

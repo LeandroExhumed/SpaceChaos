@@ -8,8 +8,8 @@ namespace LeandroExhumed.SpaceChaos.Player
 
         event Action<int> OnLifeChanged;
 
-        void AddLife ();
         void Initialize (int startLife);
+        void AddLife ();
         void LoseLife ();
     }
 }
