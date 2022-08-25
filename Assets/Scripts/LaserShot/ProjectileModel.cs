@@ -1,57 +1,25 @@
-using LeandroExhumed.SpaceChaos.Common.Damage;
-using SpaceChaos.Constants;
+using LeandroExhumed.SpaceChaos.Common;
 using System;
-using System.Linq;
 using UnityEngine;
 
 namespace LeandroExhumed.SpaceChaos.Projectile
 {
-    public class ProjectileModel : IProjectileModel
+    public class ProjectileModel : LaunchableModel, IProjectileModel
     {
         public event Action OnReused;
         public event Action OnDestroyed;
-        
-        private readonly float speed;
-        private readonly int[] targetLayers;
 
-        private readonly Transform transform;
-        private readonly Rigidbody rigidbody;
-
-        public ProjectileModel (float speed, int[] targetLayers, Transform transform, Rigidbody rigidbody)
+        public ProjectileModel (
+            float speed,
+            Transform transform,
+            Rigidbody rigidbody,
+            Collider collider) : base (speed, transform, rigidbody, collider)
         {
-            this.speed = speed;
-            this.targetLayers = targetLayers;
-            this.transform = transform;
-            this.rigidbody = rigidbody;
-        }
-
-        public void Initialize (Vector3 position, Vector3 rotation)
-        {
-            rigidbody.position = position;
-            transform.forward = rotation;
-        }
-
-        public void GetLaunched ()
-        {
-            rigidbody.AddForce(transform.forward * speed);
         }
 
         public void HandleCollision (Collider colider)
         {
-            if (colider.TryGetComponent(out IDamageableModel damageable))
-            {
-                damageable.TakeDamage();
-            }
-
-            if (targetLayers.Contains(colider.gameObject.layer))
-            {
-                Destroy();
-            }
-
-            if (colider.CompareTag(Tags.SPACE_WIDTH_LIMIT) || colider.CompareTag(Tags.SPACE_HEIGHT_LIMIT))
-            {
-                Destroy();
-            }
+            
         }
 
         public void Reuse ()

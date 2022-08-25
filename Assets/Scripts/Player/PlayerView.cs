@@ -7,6 +7,7 @@ namespace LeandroExhumed.SpaceChaos.Player
     public class PlayerView : MonoBehaviour
     {
         public event Action OnUpdate;
+        public event Action<Collider> OnCollision;
         public event Action OnInvencibleBlinkinhEffectOver;
 
         [SerializeField]
@@ -51,6 +52,11 @@ namespace LeandroExhumed.SpaceChaos.Player
         private void Update ()
         {
             OnUpdate?.Invoke();
+        }
+
+        private void OnTriggerEnter (Collider other)
+        {
+            OnCollision?.Invoke(other);
         }
 
         private void SetRenderersActive (bool value)

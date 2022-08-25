@@ -1,12 +1,11 @@
-﻿using LeandroExhumed.SpaceChaos.Pooling;
+﻿using LeandroExhumed.SpaceChaos.Common;
+using LeandroExhumed.SpaceChaos.Pooling;
 using UnityEngine;
 
 namespace LeandroExhumed.SpaceChaos.Projectile
 {
-    public interface IProjectileModel : IPoolable
+    public interface IProjectileModel : ILaunchableModel, IPoolable
     {
-        void Initialize (Vector3 position, Vector3 rotation);
-        void GetLaunched ();
         void HandleCollision (Collider colider);
     }
 }

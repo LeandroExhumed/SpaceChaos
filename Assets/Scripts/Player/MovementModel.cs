@@ -1,9 +1,10 @@
-﻿using System;
+﻿using LeandroExhumed.SpaceChaos.Common;
+using System;
 using UnityEngine;
 
 namespace LeandroExhumed.SpaceChaos.Player
 {
-    public class MovementModel : IMovementModel
+    public class MovementModel : OffscreenMovementModel, IMovementModel
     {
         public event Action<bool> OnThrusterNeedChanged;
 
@@ -14,7 +15,10 @@ namespace LeandroExhumed.SpaceChaos.Player
         private readonly Transform transform;
         private readonly Rigidbody rigidbody;
 
-        public MovementModel (Transform transform, Rigidbody rigidbody)
+        public MovementModel (
+            Transform transform,
+            Rigidbody rigidbody,
+            Camera camera) : base (transform, rigidbody, camera)
         {
             this.transform = transform;
             this.rigidbody = rigidbody;

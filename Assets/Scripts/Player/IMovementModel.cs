@@ -10,5 +10,6 @@ namespace LeandroExhumed.SpaceChaos.Player
         void Thrust (float input);
         void Stop ();
         void Reset ();
+        void Overflow ();
     }
 }

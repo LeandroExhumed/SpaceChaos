@@ -77,5 +77,7 @@ namespace LeandroExhumed.SpaceChaos.Player
         {
             controller.Dispose();
         }
+
+        public void Overflow () => movement.Overflow();
     }
 }

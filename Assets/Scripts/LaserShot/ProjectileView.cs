@@ -7,11 +7,18 @@ namespace LeandroExhumed.SpaceChaos.Projectile
     {
         public event Action<Collider> OnTriggerEntered;
 
+        private GameObject parent;
+
+        private void Awake ()
+        {
+            parent = transform.parent.gameObject;
+        }
+
         private void OnTriggerEnter (Collider other)
         {
             OnTriggerEntered?.Invoke(other);
         }
 
-        public void Destroy () => gameObject.SetActive(false);
+        public void Destroy () => parent.SetActive(false);
     }
 }

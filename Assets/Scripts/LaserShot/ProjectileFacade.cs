@@ -29,7 +29,8 @@ namespace LeandroExhumed.SpaceChaos.Projectile
 
             controller.Setup();
         }
-        public void Initialize (Vector3 position, Vector3 rotation) => model.Initialize(position, rotation);
+        public void Initialize (Vector3 position, Quaternion rotation, Collider owner = null)
+            => model.Initialize(position, rotation, owner);
 
         public void GetLaunched () => model.GetLaunched();
         public void HandleCollision (Collider colider) => model.HandleCollision(colider);

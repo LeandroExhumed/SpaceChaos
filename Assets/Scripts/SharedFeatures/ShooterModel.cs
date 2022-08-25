@@ -16,17 +16,21 @@ namespace LeandroExhumed.SpaceChaos.Common
 
         private readonly Pool pool;
 
+        private Collider collider;
+
         public ShooterModel (
             Transform[] weapons,
             PoolableObject projectilePrefab,
             PoolableObject.Factory projectileFactory,
-            Pool pool)
+            Pool pool,
+            Collider collider)
         {
             this.weapons = weapons;
             this.projectilePrefab = projectilePrefab;
             this.pool = pool;
 
             pool.AddPool(projectilePrefab, POOL_SIZE, projectileFactory);
+            this.collider = collider;
         }
 
         public void Shot ()
@@ -34,7 +38,7 @@ namespace LeandroExhumed.SpaceChaos.Common
             for (int i = 0; i < weapons.Length; i++)
             {
                 ProjectileFacade projectile = pool.GetObject<ProjectileFacade>(projectilePrefab);
-                projectile.Initialize(weapons[i].position, weapons[i].forward);
+                projectile.Initialize(weapons[i].position, weapons[i].rotation, collider);
                 projectile.GetLaunched();
                 OnShot?.Invoke(); 
             }

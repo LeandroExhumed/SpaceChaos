@@ -7,34 +7,11 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
     {
         public event Action<Collider> OnCollision;
 
-        [SerializeField]
-        private GameObject mesh;
-        [SerializeField]
-        private new Collider collider;
+        public void Destroy () => Destroy(gameObject);
 
-        [SerializeField]
-        private GameObject explosion;
-
-        private const float EXPLOSION_LIFETIME = 3;
-
-        public void DisableCollider ()
+        private void OnCollisionEnter (Collision collision)
         {
-            collider.enabled = false;
-        }
-
-        public void DisableMesh ()
-        {
-            mesh.SetActive(false);
-        }
-
-        public void CreateDestructionVFX ()
-        {
-            Destroy(Instantiate(explosion, transform.position, explosion.transform.rotation), EXPLOSION_LIFETIME);
-        }
-
-        private void OnTriggerEnter (Collider other)
-        {
-            OnCollision?.Invoke(other);            
+            OnCollision?.Invoke(collision.collider);
         }
     }
 }

@@ -2,6 +2,7 @@
 using LeandroExhumed.SpaceChaos.Common;
 using LeandroExhumed.SpaceChaos.Common.Damage;
 using LeandroExhumed.SpaceChaos.Input;
+using UnityEngine;
 
 namespace LeandroExhumed.SpaceChaos.Player
 {
@@ -13,6 +14,7 @@ namespace LeandroExhumed.SpaceChaos.Player
         private readonly ILifeModel life;
         private readonly IScoreModel score;
         private readonly PlayerView view;
+        private readonly OffscreenDetector offscreenDetector;
         private readonly PlayerUIView uiView;
         
         private readonly IInput input;
@@ -26,6 +28,7 @@ namespace LeandroExhumed.SpaceChaos.Player
             IScoreModel score,
             PlayerView view,
             PlayerUIView uiView,
+            OffscreenDetector offscreenDetector,
             IInput input,
             AudioProvider audioProvider)
         {
@@ -36,6 +39,7 @@ namespace LeandroExhumed.SpaceChaos.Player
             this.score = score;
             this.view = view;
             this.uiView = uiView;
+            this.offscreenDetector = offscreenDetector;
             this.input = input;
             this.audioProvider = audioProvider;
         }
@@ -49,8 +53,10 @@ namespace LeandroExhumed.SpaceChaos.Player
             life.OnLifeChanged += HandleLifeChanged;
             score.OnScoreChanged += HandleScoreChanged;
             score.OnAdvancedScoreReached += HandleAdvancedScoreReached;
-            view.OnInvencibleBlinkinhEffectOver += HandleInvencibleBlinkinhEffectOver;
             view.OnUpdate += HandleUpdate;
+            view.OnCollision += HandleCollision;
+            offscreenDetector.OnOffscreen += HandleOffscreen;
+            view.OnInvencibleBlinkinhEffectOver += HandleInvencibleBlinkinhEffectOver;
             input.OnShotPerformed += HandleShotPerformed;
         }
 
@@ -106,6 +112,21 @@ namespace LeandroExhumed.SpaceChaos.Player
             movement.Thrust(input.Thrust);
         }
 
+        private void HandleCollision (Collider collider)
+        {
+            if (collider.TryGetComponent(out IDamageableModel damageable))
+            {
+                damageable.TakeDamage();
+            }
+
+            health.TakeDamage();
+        }
+
+        private void HandleOffscreen ()
+        {
+            movement.Overflow();
+        }
+
         private void HandleShotPerformed ()
         {
             shooter.Shot();
@@ -120,6 +141,9 @@ namespace LeandroExhumed.SpaceChaos.Player
             life.OnLifeChanged -= HandleLifeChanged;
             score.OnScoreChanged -= HandleScoreChanged;
             score.OnAdvancedScoreReached -= HandleAdvancedScoreReached;
+            view.OnUpdate -= HandleUpdate;
+            view.OnCollision -= HandleCollision;
+            offscreenDetector.OnOffscreen -= HandleOffscreen;
             view.OnInvencibleBlinkinhEffectOver -= HandleInvencibleBlinkinhEffectOver;
             input.OnShotPerformed -= HandleShotPerformed;
         }

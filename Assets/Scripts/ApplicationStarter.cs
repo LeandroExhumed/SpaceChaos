@@ -17,6 +17,7 @@ namespace LeandroExhumed.SpaceChaos
         private void Awake ()
         {
             stage.Initialize(4);
+            stage.Begin();
         }
     }
 }
