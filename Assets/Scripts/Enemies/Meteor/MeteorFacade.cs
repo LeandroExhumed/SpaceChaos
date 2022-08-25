@@ -6,8 +6,13 @@ using Zenject;
 
 namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
 {
-    public class MeteorFacade : MonoBehaviour, ILaunchableModel, IDamageableModel
+    public class MeteorFacade : MonoBehaviour, IDamageableModel, ILaunchableModel, ISplittableModel
     {
+        public event Action OnNewPiece
+        {
+            add => splitting.OnNewPiece += value;
+            remove => splitting.OnNewPiece -= value;
+        }
         public event Action<IDamageableModel> OnDeath
         {
             add => health.OnDeath += value;
@@ -22,13 +27,15 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
         public int InstanceID => health.InstanceID;
 
         private ILaunchableModel launchable;
+        private ISplittableModel splitting;
         private IDamageableModel health;
         private IController controller;
 
         [Inject]
-        public void Constructor (ILaunchableModel launchable, IDamageableModel health, IController controller)
+        public void Constructor (ILaunchableModel launchable, ISplittableModel splitting, IDamageableModel health, IController controller)
         {
             this.launchable = launchable;
+            this.splitting = splitting;
             this.health = health;
             this.controller = controller;
 
@@ -39,6 +46,10 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
             => launchable.Initialize(position, rotation, owner);
 
         public void GetLaunched () => launchable.GetLaunched();
+
+        public void Split () => splitting.Split();
+
+        public void Decrease (int timesBroken, Vector3 scale) => splitting.Decrease(timesBroken, scale);
 
         public void TakeDamage () => health.TakeDamage();
 

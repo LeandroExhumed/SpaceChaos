@@ -21,6 +21,7 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
         private void ResolveMVC ()
         {
             Container.Bind<ILaunchableModel>().To<LaunchableModel>().AsSingle();
+            Container.Bind<ISplittableModel>().To<SplittingModel>().AsSingle();
             Container.Bind<IOffscreenMovementModel>().To<OffscreenMovementModel>().AsSingle();
             Container.Bind<IDamageableModel>().To<Health>().AsSingle();
             Container.Bind<IController>().To<MeteorController>().AsSingle();

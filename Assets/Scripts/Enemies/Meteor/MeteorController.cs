@@ -8,6 +8,7 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
     public class MeteorController : IController
     {
         private readonly IOffscreenMovementModel offscreenMovement;
+        private readonly ISplittableModel splitting;
         private readonly IDamageableModel health;
         private readonly MeteorView view;
         private readonly OffscreenDetector offscreenDetector;
@@ -16,12 +17,14 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
 
         public MeteorController (
             IOffscreenMovementModel offscreenMovement,
+            ISplittableModel splitting,
             IDamageableModel health,
             MeteorView view,
             OffscreenDetector offscreenDetector,
             AudioProvider audioProvider)
         {
             this.offscreenMovement = offscreenMovement;
+            this.splitting = splitting;
             this.health = health;
             this.view = view;
             this.offscreenDetector = offscreenDetector;
@@ -37,6 +40,7 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
 
         private void HandleDeath (IDamageableModel _)
         {
+            splitting.Split();
             view.Destroy();
             audioProvider.PlayOneShot(SoundType.Explosion);
         }

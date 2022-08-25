@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
@@ -14,26 +10,37 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
         private int timesBroken = 0;
         private int maximumPieces = 2;
 
+        private readonly MeteorFacade.Factory meteorFactory;
+
+        private readonly Transform transform;
+
+        public SplittingModel (MeteorFacade.Factory meteorFactory, Transform transform)
+        {
+            this.meteorFactory = meteorFactory;
+            this.transform = transform;
+        }
+
         public void Split ()
         {
             if (timesBroken < maximumPieces)
             {
-                Quaternion randomRotation;
-
                 for (int i = 0; i < maximumPieces; i++)
                 {
-                    randomRotation = Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360));
-                    //GameObject obj = Instantiate(gameObject, transform.localPosition, randomRotation);
-                    //obj.GetComponent<Splitting>().decrease();
+                    MeteorFacade meteor = meteorFactory.Create();
+                    meteor.Initialize(transform.position, Quaternion.Euler(UnityEngine.Random.value * 360, 90f, 0f));
+                    meteor.Decrease(timesBroken + 1, transform.localScale / 2);
+                    meteor.GetLaunched();
 
                     //OnNewPiece(obj);
                 }
             }
         }
 
-        private void Decrease ()
+        public void Decrease (int timesBroken, Vector3 scale)
         {
-
+            this.timesBroken = timesBroken;
+            transform.localScale = scale;
+            //GetComponent<Damage>().increaseValue();
         }
     }
 }
