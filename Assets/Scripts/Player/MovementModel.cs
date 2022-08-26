@@ -12,6 +12,9 @@ namespace LeandroExhumed.SpaceChaos.Player
         private float force = 5f;
         private float thrusterMinVelocity = 0.3f;
 
+        private Vector3 startPosition;
+        private Quaternion startRotation;
+
         private readonly Transform transform;
         private readonly Rigidbody rigidbody;
 
@@ -22,6 +25,9 @@ namespace LeandroExhumed.SpaceChaos.Player
         {
             this.transform = transform;
             this.rigidbody = rigidbody;
+
+            startPosition = transform.position;
+            startRotation = transform.rotation;
         }
 
         public void Steer (float direction)
@@ -46,8 +52,8 @@ namespace LeandroExhumed.SpaceChaos.Player
 
         public void Reset ()
         {
-            transform.position = Vector3.zero;
-            transform.rotation = Quaternion.identity;
+            transform.position = startPosition;
+            transform.rotation = startRotation;
         }
     }
 }

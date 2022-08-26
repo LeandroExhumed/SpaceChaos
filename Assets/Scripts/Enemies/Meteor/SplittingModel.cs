@@ -5,7 +5,7 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
 {
     public class SplittingModel : ISplittableModel
     {
-        public event Action OnNewPiece;
+        public event Action<MeteorFacade> OnNewPiece;
 
         private int timesBroken = 0;
         private int maximumPieces = 2;
@@ -31,7 +31,7 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
                     meteor.Decrease(timesBroken + 1, transform.localScale / 2);
                     meteor.GetLaunched();
 
-                    //OnNewPiece(obj);
+                    OnNewPiece?.Invoke(meteor);
                 }
             }
         }

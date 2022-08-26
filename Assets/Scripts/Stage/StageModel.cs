@@ -1,4 +1,5 @@
 ﻿using LeandroExhumed.SpaceChaos.Common.Damage;
+using LeandroExhumed.SpaceChaos.Enemies.Meteor;
 using LeandroExhumed.SpaceChaos.Player;
 using System;
 using System.Collections;
@@ -15,6 +16,10 @@ namespace LeandroExhumed.SpaceChaos.Stage
         private const float RESPAWN_DELAY = 4f;
 
         private int asteroidsPerStage;
+        private int enemies;
+
+        private float timer = 0;
+        private float secondsToCheckProbability = 10;
 
         private readonly IAsteroindSpawningModel asteroindSpawning;
         private readonly ILifeModel life;
@@ -37,13 +42,27 @@ namespace LeandroExhumed.SpaceChaos.Stage
         {
             for (int i = 0; i < asteroidsPerStage; i++)
             {
-                asteroindSpawning.Spawn();
+                MeteorFacade meteor = asteroindSpawning.Spawn();
+                RegisterMeteor(meteor);
             }
         }
 
         public void Tick ()
         {
-            asteroindSpawning.Tick();
+            if (timer >= secondsToCheckProbability)
+            {
+                float probability = UnityEngine.Random.value;
+                if (probability >= 0.5f)
+                {
+                    //ufoSpawner.createUFO();
+                    //enemies++;
+                    Debug.Log("UFO spawned");
+                }
+
+                timer = 0;
+            }
+
+            timer += Time.deltaTime;
         }
 
         public void HandleShipDeath (IDamageableModel ship)
@@ -62,6 +81,27 @@ namespace LeandroExhumed.SpaceChaos.Stage
         {
             monoBehaviour.StartCoroutine(NextStagePassageDelayRoutine());
             OnEnd?.Invoke();
+        }
+
+        private void RegisterMeteor (MeteorFacade meteor)
+        {
+            meteor.OnDeath += HandleMeteorDestruction;
+            meteor.OnNewPiece += HandleNewPiece;
+            enemies++;
+        }
+
+        private void HandleNewPiece (MeteorFacade piece)
+        {
+            RegisterMeteor(piece);
+        }
+
+        private void HandleMeteorDestruction (IDamageableModel obj)
+        {
+            enemies--;
+            if (enemies == 0)
+            {
+                End();
+            }
         }
 
         private IEnumerator PlayerRespawningDelayRoutine (IDamageableModel ship)

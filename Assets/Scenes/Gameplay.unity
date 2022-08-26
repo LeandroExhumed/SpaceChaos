@@ -464,6 +464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 4676610415342514108}
+  view: {fileID: 635701214}
   playerUIVIew: {fileID: 1042179447}
 --- !u!114 &106333979
 MonoBehaviour:
@@ -1145,7 +1146,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: -7.299988}
+  m_AnchoredPosition: {x: 0, y: -7.300049}
   m_SizeDelta: {x: 0, y: 14.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &482349622
@@ -1359,7 +1360,7 @@ RectTransform:
   - {fileID: 1218086887}
   - {fileID: 482349621}
   m_Father: {fileID: 2096210139}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1409,7 +1410,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 2096210139}
+    m_TransformParent: {fileID: 635701213}
     m_Modifications:
     - target: {fileID: 1412799375167054, guid: 234ba9fc826f63449817c23f75853646, type: 3}
       propertyPath: m_Name
@@ -1447,7 +1448,7 @@ PrefabInstance:
     - target: {fileID: 224638469734907772, guid: 234ba9fc826f63449817c23f75853646,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224638469734907772, guid: 234ba9fc826f63449817c23f75853646,
         type: 3}
@@ -1683,8 +1684,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 635701213}
+  - component: {fileID: 635701214}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: Stage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1701,15 +1703,29 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1424161968}
   m_Father: {fileID: 2096210139}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &635701214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635701212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeea1e43b9bffc14aa9337f0639994a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  successMessage: {fileID: 1424161967}
 --- !u!1 &637574652 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1412799375167054, guid: 234ba9fc826f63449817c23f75853646,
@@ -2243,7 +2259,7 @@ RectTransform:
   - {fileID: 482641484}
   - {fileID: 105930027}
   m_Father: {fileID: 2096210139}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2387,7 +2403,7 @@ PrefabInstance:
     - target: {fileID: 224968071015928914, guid: 5470fbb63309a7c4588440ab991815ab,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 224968071015928914, guid: 5470fbb63309a7c4588440ab991815ab,
         type: 3}
@@ -3364,11 +3380,11 @@ RectTransform:
   - {fileID: 1086620998}
   - {fileID: 1752534157}
   m_Father: {fileID: 2096210139}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1439896493
@@ -5356,11 +5372,10 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 635701213}
   - {fileID: 1042179446}
   - {fileID: 553503302}
   - {fileID: 1439896492}
-  - {fileID: 1424161968}
-  - {fileID: 635701213}
   - {fileID: 318201291}
   m_Father: {fileID: 0}
   m_RootOrder: 3

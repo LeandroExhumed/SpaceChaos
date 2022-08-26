@@ -7,9 +7,6 @@ namespace LeandroExhumed.SpaceChaos.Stage
     {
         private const float SAFE_SPAWN_RADIUS = 4F;
 
-        private float timer = 0;
-        private float secondsToCheckProbability = 10;
-
         private readonly Camera camera;
         private readonly MeteorFacade.Factory meteorFactory;
 
@@ -19,28 +16,13 @@ namespace LeandroExhumed.SpaceChaos.Stage
             this.meteorFactory = meteorFactory;
         }
 
-        public void Spawn ()
+        public MeteorFacade Spawn ()
         {
             MeteorFacade meteor = meteorFactory.Create();
             meteor.Initialize(GetRandomPosition(), Quaternion.Euler(Random.value * 360, 90f, 0f));
             meteor.GetLaunched();
-        }
 
-        public void Tick ()
-        {
-            if (timer >= secondsToCheckProbability)
-            {
-                float probability = Random.value;
-                if (probability >= 0.5f)
-                {
-                    //ufoSpawner.createUFO();
-                    Debug.Log("UFO spawned");
-                }
-
-                timer = 0;
-            }
-
-            timer += Time.deltaTime;
+            return meteor;
         }
 
         private Vector3 GetRandomPosition ()

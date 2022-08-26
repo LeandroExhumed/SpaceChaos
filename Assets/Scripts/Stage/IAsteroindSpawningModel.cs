@@ -1,8 +1,9 @@
-﻿namespace LeandroExhumed.SpaceChaos.Stage
+﻿using LeandroExhumed.SpaceChaos.Enemies.Meteor;
+
+namespace LeandroExhumed.SpaceChaos.Stage
 {
     public interface IAsteroindSpawningModel
     {
-        void Spawn ();
-        void Tick ();
+        MeteorFacade Spawn ();
     }
 }

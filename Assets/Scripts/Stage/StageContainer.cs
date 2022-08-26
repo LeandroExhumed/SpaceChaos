@@ -11,6 +11,8 @@ namespace LeandroExhumed.SpaceChaos.Stage
         private ShipFacade player;
 
         [SerializeField]
+        private StageView view;
+        [SerializeField]
         private PlayerUIView playerUIVIew;
 
         public override void InstallBindings ()
@@ -29,6 +31,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
         {
             Container.Bind<IStageModel>().To<StageModel>().AsSingle();
             Container.Bind<IController>().To<StageController>().AsSingle();
+            Container.BindInstance(view).AsSingle();
         }
     }
 }

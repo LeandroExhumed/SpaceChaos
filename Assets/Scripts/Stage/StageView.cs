@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace LeandroExhumed.SpaceChaos.Stage
 {
@@ -12,6 +7,6 @@ namespace LeandroExhumed.SpaceChaos.Stage
         [SerializeField]
         private GameObject successMessage;
 
-        public void SetSuccessMessageActive (bool value) => gameObject.SetActive(value);
+        public void SetSuccessMessageActive (bool value) => successMessage.SetActive(value);
     }
 }

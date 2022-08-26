@@ -8,7 +8,7 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
 {
     public class MeteorFacade : MonoBehaviour, IDamageableModel, ILaunchableModel, ISplittableModel
     {
-        public event Action OnNewPiece
+        public event Action<MeteorFacade> OnNewPiece
         {
             add => splitting.OnNewPiece += value;
             remove => splitting.OnNewPiece -= value;
