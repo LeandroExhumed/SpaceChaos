@@ -90,6 +90,7 @@ namespace LeandroExhumed.SpaceChaos.Player
             view.SetColliderActive(false);
             view.DisableMeshes();
             view.PlayExplosionVFX();
+            life.LoseLife();
             input.SetActive(false);
             audioProvider.PlayOneShot(SoundType.Explosion);
         }

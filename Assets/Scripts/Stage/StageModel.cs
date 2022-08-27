@@ -12,35 +12,39 @@ namespace LeandroExhumed.SpaceChaos.Stage
         public event Action OnEnd;
         public event Action OnGameOver;
 
-        private const float TIME_TO_NEXT_STAGE = 3f;
         private const float RESPAWN_DELAY = 4f;
 
-        private int asteroidsPerStage;
         private int enemies;
 
         private float timer = 0;
         private float secondsToCheckProbability = 10;
 
         private readonly IAsteroindSpawningModel asteroindSpawning;
+        private readonly IDamageableModel ship;
         private readonly ILifeModel life;
 
         private readonly MonoBehaviour monoBehaviour;
 
-        public StageModel (IAsteroindSpawningModel asteroindSpawning, ILifeModel life, MonoBehaviour monoBehaviour)
+        public StageModel (
+            IAsteroindSpawningModel asteroindSpawning,
+            IDamageableModel ship,
+            ILifeModel life,
+            MonoBehaviour monoBehaviour)
         {
             this.asteroindSpawning = asteroindSpawning;
+            this.ship = ship;
             this.life = life;
             this.monoBehaviour = monoBehaviour;
         }
 
-        public void Initialize (int startAsteroidsAmount)
+        public void Initialize ()
         {
-            asteroidsPerStage = startAsteroidsAmount;
+            ship.OnDeath += HandleShipDeath;
         }
 
-        public void Begin ()
+        public void Begin (int startAsteroidsAmount)
         {
-            for (int i = 0; i < asteroidsPerStage; i++)
+            for (int i = 0; i < startAsteroidsAmount; i++)
             {
                 MeteorFacade meteor = asteroindSpawning.Spawn();
                 RegisterMeteor(meteor);
@@ -65,6 +69,18 @@ namespace LeandroExhumed.SpaceChaos.Stage
             timer += Time.deltaTime;
         }
 
+        public void End ()
+        {
+            OnEnd?.Invoke();
+        }
+
+        private void RegisterMeteor (MeteorFacade meteor)
+        {
+            meteor.OnDeath += HandleMeteorDestruction;
+            meteor.OnNewPiece += HandleNewPiece;
+            enemies++;
+        }
+
         public void HandleShipDeath (IDamageableModel ship)
         {
             if (life.Life == 0)
@@ -75,19 +91,6 @@ namespace LeandroExhumed.SpaceChaos.Stage
             {
                 monoBehaviour.StartCoroutine(PlayerRespawningDelayRoutine(ship));
             }
-        }
-
-        public void End ()
-        {
-            monoBehaviour.StartCoroutine(NextStagePassageDelayRoutine());
-            OnEnd?.Invoke();
-        }
-
-        private void RegisterMeteor (MeteorFacade meteor)
-        {
-            meteor.OnDeath += HandleMeteorDestruction;
-            meteor.OnNewPiece += HandleNewPiece;
-            enemies++;
         }
 
         private void HandleNewPiece (MeteorFacade piece)
@@ -110,10 +113,9 @@ namespace LeandroExhumed.SpaceChaos.Stage
             ship.Resurrect();
         }
 
-        private IEnumerator NextStagePassageDelayRoutine ()
+        public void Dispose ()
         {
-            yield return new WaitForSeconds(TIME_TO_NEXT_STAGE);
-            Begin();
+            ship.OnDeath -= HandleShipDeath;
         }
     }
 }

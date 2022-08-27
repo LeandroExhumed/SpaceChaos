@@ -1,17 +1,15 @@
-﻿using LeandroExhumed.SpaceChaos.Common.Damage;
-using System;
+﻿using System;
 
 namespace LeandroExhumed.SpaceChaos.Stage
 {
-    public interface IStageModel
+    public interface IStageModel : IDisposable
     {
         event Action OnEnd;
         event Action OnGameOver;
 
-        void Initialize (int startAsteroidsAmount);
-        void Begin ();
+        void Initialize ();
+        void Begin (int startAsteroidsAmount);
         void Tick ();
-        void HandleShipDeath (IDamageableModel ship);
         void End ();
     }
 }

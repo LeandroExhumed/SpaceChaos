@@ -433,7 +433,7 @@ GameObject:
   - component: {fileID: 106333978}
   - component: {fileID: 106333977}
   m_Layer: 0
-  m_Name: Stage
+  m_Name: Session
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -466,6 +466,8 @@ MonoBehaviour:
   player: {fileID: 4676610415342514108}
   view: {fileID: 635701214}
   playerUIVIew: {fileID: 1042179447}
+  meteorPrefab: {fileID: 5894518605943296765, guid: 5bd53b77202f93441a0e2ed956db7714,
+    type: 3}
 --- !u!114 &106333979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1273,8 +1275,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 72
+  m_fontSizeBase: 72
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1686,7 +1688,7 @@ GameObject:
   - component: {fileID: 635701213}
   - component: {fileID: 635701214}
   m_Layer: 5
-  m_Name: Stage
+  m_Name: Session
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1722,7 +1724,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 635701212}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aeea1e43b9bffc14aa9337f0639994a8, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b4a6732ac60b5148a120739796bd1be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   successMessage: {fileID: 1424161967}
@@ -1808,9 +1810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 157f578cf2a719b48ab75fafb3461cfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stage: {fileID: 106333977}
-  meteorPrefab: {fileID: 5894518605943296765, guid: 5bd53b77202f93441a0e2ed956db7714,
-    type: 3}
+  session: {fileID: 106333977}
 --- !u!114 &833368836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2971,8 +2971,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 42
+  m_fontSizeBase: 42
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

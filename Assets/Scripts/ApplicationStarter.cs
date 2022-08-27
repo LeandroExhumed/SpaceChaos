@@ -1,4 +1,4 @@
-using LeandroExhumed.SpaceChaos.Stage;
+using LeandroExhumed.SpaceChaos.Session;
 using UnityEngine;
 using Zenject;
 
@@ -6,18 +6,17 @@ namespace LeandroExhumed.SpaceChaos
 {
     public class ApplicationStarter : MonoBehaviour
     {
-        private IStageModel stage;
+        private ISessionModel session;
 
         [Inject]
-        public void Constructor (IStageModel stage)
+        public void Constructor (ISessionModel session)
         {
-            this.stage = stage;
+            this.session = session;
         }
 
         private void Awake ()
         {
-            stage.Initialize(4);
-            stage.Begin();
+            session.Initialize();
         }
     }
 }

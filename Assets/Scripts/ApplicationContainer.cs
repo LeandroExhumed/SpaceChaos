@@ -1,8 +1,7 @@
 using LeandroExhumed.SpaceChaos.Audio;
-using LeandroExhumed.SpaceChaos.Enemies.Meteor;
 using LeandroExhumed.SpaceChaos.Input;
 using LeandroExhumed.SpaceChaos.Pooling;
-using LeandroExhumed.SpaceChaos.Stage;
+using LeandroExhumed.SpaceChaos.Session;
 using UnityEngine;
 using Zenject;
 
@@ -11,10 +10,7 @@ namespace LeandroExhumed.SpaceChaos
     public class ApplicationContainer : MonoInstaller
     {
         [SerializeField]
-        private StageFacade stage;
-
-        [SerializeField]
-        private MeteorFacade meteorPrefab;
+        private SessionFacade session;
 
         public override void InstallBindings ()
         {
@@ -24,10 +20,9 @@ namespace LeandroExhumed.SpaceChaos
 
             Container.Bind<PlayerActions>().AsSingle();
 
-            Container.BindFactory<MeteorFacade, MeteorFacade.Factory>()
-                .FromComponentInNewPrefab(meteorPrefab);
-            Container.Bind<IAsteroindSpawningModel>().To<AsteroindSpawningModel>().AsSingle();            
-            Container.Bind<IStageModel>().FromInstance(stage).AsSingle();
+            Container.Bind<ISessionModel>().FromInstance(session).AsSingle();            
+
+            Container.BindInstance(GetComponent<MonoBehaviour>()).AsSingle();
         }
     }
 }

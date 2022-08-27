@@ -1,19 +1,24 @@
 using LeandroExhumed.SpaceChaos.Common.Damage;
+using LeandroExhumed.SpaceChaos.Enemies.Meteor;
 using LeandroExhumed.SpaceChaos.Player;
+using LeandroExhumed.SpaceChaos.Stage;
 using UnityEngine;
 using Zenject;
 
-namespace LeandroExhumed.SpaceChaos.Stage
+namespace LeandroExhumed.SpaceChaos.Session
 {
-    public class StageContainer : MonoInstaller
+    public class SessionContainer : MonoInstaller
     {
         [SerializeField]
         private ShipFacade player;
 
         [SerializeField]
-        private StageView view;
+        private SessionView view;
         [SerializeField]
         private PlayerUIView playerUIVIew;
+
+        [SerializeField]
+        private MeteorFacade meteorPrefab;
 
         public override void InstallBindings ()
         {
@@ -25,13 +30,23 @@ namespace LeandroExhumed.SpaceChaos.Stage
             Container.Bind<IScoreModel>().To<ScoreModel>().AsSingle();
 
             Container.BindInstance(playerUIVIew).AsSingle();
+
+            ResolveStage();
         }
 
         private void ResolveMVC ()
         {
-            Container.Bind<IStageModel>().To<StageModel>().AsSingle();
-            Container.Bind<IController>().To<StageController>().AsSingle();
+            Container.Bind<ISessionModel>().To<SessionModel>().AsSingle();
+            Container.Bind<IController>().To<SessionController>().AsSingle();
             Container.BindInstance(view).AsSingle();
+        }
+
+        private void ResolveStage ()
+        {
+            Container.Bind<IStageModel>().To<StageModel>().AsSingle();
+            Container.BindFactory<MeteorFacade, MeteorFacade.Factory>()
+                .FromComponentInNewPrefab(meteorPrefab);
+            Container.Bind<IAsteroindSpawningModel>().To<AsteroindSpawningModel>().AsSingle();
         }
     }
 }

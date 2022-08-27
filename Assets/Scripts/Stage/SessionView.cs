@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace LeandroExhumed.SpaceChaos.Stage
+namespace LeandroExhumed.SpaceChaos.Session
 {
-    public class StageView : MonoBehaviour
+    public class SessionView : MonoBehaviour
     {
         [SerializeField]
         private GameObject successMessage;
