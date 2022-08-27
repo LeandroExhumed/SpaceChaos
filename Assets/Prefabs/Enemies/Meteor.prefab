@@ -83,6 +83,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 80
+  rewardXP: 80
 --- !u!114 &5894518605943296765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,9 +155,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b5dc8e5838bf64b9a3464b50b723e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mesh: {fileID: 2832644784831217723}
-  collider: {fileID: 5253601483897277603}
-  explosion: {fileID: 0}
 --- !u!1001 &2832644784831317659
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -19,7 +19,7 @@ namespace LeandroExhumed.SpaceChaos.Player
             add => shooter.OnShot += value;
             remove => shooter.OnShot -= value;
         }
-        public event Action<IDamageableModel> OnDeath
+        public event Action<DeathInfo> OnDeath
         {
             add => health.OnDeath += value;
             remove => health.OnDeath -= value;
@@ -29,8 +29,6 @@ namespace LeandroExhumed.SpaceChaos.Player
             add => health.OnResurrection += value;
             remove => health.OnResurrection -= value;
         }
-
-        public int InstanceID => health.InstanceID;
 
         private IMovementModel movement;
         private IShooterModel shooter;

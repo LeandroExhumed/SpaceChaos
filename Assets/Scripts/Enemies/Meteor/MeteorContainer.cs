@@ -9,11 +9,13 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
     {
         [SerializeField]
         private float speed = 50f;
+        [SerializeField]
+        private int rewardXP = 80;
 
         public override void InstallBindings ()
         {
             ResolveMVC();
-            Container.BindInstance(GetInstanceID()).AsSingle();
+            Container.BindInstance(rewardXP).AsSingle();
             Container.BindInstance(speed).AsSingle();
             ResolveComponents();
         }
@@ -23,7 +25,7 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
             Container.Bind<ILaunchableModel>().To<LaunchableModel>().AsSingle();
             Container.Bind<ISplittableModel>().To<SplittingModel>().AsSingle();
             Container.Bind<IOffscreenMovementModel>().To<OffscreenMovementModel>().AsSingle();
-            Container.Bind<IDamageableModel>().To<Health>().AsSingle();
+            Container.Bind<IDamageableModel>().To<EnemyHealth>().AsSingle();
             Container.Bind<IController>().To<MeteorController>().AsSingle();
             Container.BindInstance(GetComponentInChildren<MeteorView>()).AsSingle();
             Container.BindInstance(GetComponentInChildren<OffscreenDetector>()).AsSingle();

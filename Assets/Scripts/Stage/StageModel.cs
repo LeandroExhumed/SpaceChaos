@@ -22,18 +22,21 @@ namespace LeandroExhumed.SpaceChaos.Stage
         private readonly IAsteroindSpawningModel asteroindSpawning;
         private readonly IDamageableModel ship;
         private readonly ILifeModel life;
-
+        private readonly IScoreModel score;
+        
         private readonly MonoBehaviour monoBehaviour;
 
         public StageModel (
             IAsteroindSpawningModel asteroindSpawning,
             IDamageableModel ship,
             ILifeModel life,
+            IScoreModel score,
             MonoBehaviour monoBehaviour)
         {
             this.asteroindSpawning = asteroindSpawning;
             this.ship = ship;
             this.life = life;
+            this.score = score;
             this.monoBehaviour = monoBehaviour;
         }
 
@@ -81,7 +84,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
             enemies++;
         }
 
-        public void HandleShipDeath (IDamageableModel ship)
+        public void HandleShipDeath (DeathInfo ship)
         {
             if (life.Life == 0)
             {
@@ -89,7 +92,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
             }
             else
             {
-                monoBehaviour.StartCoroutine(PlayerRespawningDelayRoutine(ship));
+                monoBehaviour.StartCoroutine(PlayerRespawningDelayRoutine(ship.Damageable));
             }
         }
 
@@ -98,9 +101,10 @@ namespace LeandroExhumed.SpaceChaos.Stage
             RegisterMeteor(piece);
         }
 
-        private void HandleMeteorDestruction (IDamageableModel obj)
+        private void HandleMeteorDestruction (DeathInfo deathInfo)
         {
             enemies--;
+            score.AddPoints(deathInfo.XPReward);
             if (enemies == 0)
             {
                 End();

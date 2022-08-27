@@ -2,26 +2,24 @@
 
 namespace LeandroExhumed.SpaceChaos.Common.Damage
 {
-    class Health : IDamageableModel
+    public class Health : IDamageableModel
     {
-        public event Action<IDamageableModel> OnDeath;
+        public event Action<DeathInfo> OnDeath;
         public event Action OnResurrection;
-
-        public int InstanceID { get; private set; }
-
-        public Health (int instanceID)
-        {
-            InstanceID = instanceID;
-        }
 
         public void TakeDamage ()
         {
-            OnDeath?.Invoke(this);
+            OnDeath?.Invoke(GetDeathInfo());
         }
 
         public void Resurrect ()
         {
             OnResurrection?.Invoke();
+        }
+
+        protected virtual DeathInfo GetDeathInfo ()
+        {
+            return new DeathInfo(this);
         }
     }
 }

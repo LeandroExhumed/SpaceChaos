@@ -85,7 +85,7 @@ namespace LeandroExhumed.SpaceChaos.Player
             audioProvider.PlayOneShot(SoundType.LaserShot);
         }
 
-        private void HandleDeath (IDamageableModel _)
+        private void HandleDeath (DeathInfo _)
         {
             view.SetColliderActive(false);
             view.DisableMeshes();

@@ -38,7 +38,7 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
             offscreenDetector.OnOffscreen += HandleOffscreen;
         }
 
-        private void HandleDeath (IDamageableModel _)
+        private void HandleDeath (DeathInfo _)
         {
             splitting.Split();
             view.Destroy();

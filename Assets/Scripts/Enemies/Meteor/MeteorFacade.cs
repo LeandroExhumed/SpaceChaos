@@ -13,7 +13,7 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
             add => splitting.OnNewPiece += value;
             remove => splitting.OnNewPiece -= value;
         }
-        public event Action<IDamageableModel> OnDeath
+        public event Action<DeathInfo> OnDeath
         {
             add => health.OnDeath += value;
             remove => health.OnDeath -= value;
@@ -23,8 +23,6 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
             add => health.OnResurrection += value;
             remove => health.OnResurrection -= value;
         }
-
-        public int InstanceID => health.InstanceID;
 
         private ILaunchableModel launchable;
         private ISplittableModel splitting;
