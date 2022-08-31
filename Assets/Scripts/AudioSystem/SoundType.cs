@@ -4,6 +4,7 @@
         LaserShot,
         Explosion,
         LifeGain,
-        ButtonPress
+        ButtonPress,
+        Navigation
     } 
 }

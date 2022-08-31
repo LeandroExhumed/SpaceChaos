@@ -17,7 +17,6 @@ namespace LeandroExhumed.SpaceChaos.Player
         public override void InstallBindings ()
         {
             ResolveMVC();
-            Container.Bind<IInput>().To<PlayerInput>().AsSingle();
             ResolveComponents();
             ResolveWeapons();
         }

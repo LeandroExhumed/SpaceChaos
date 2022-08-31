@@ -1,5 +1,6 @@
 ﻿using LeandroExhumed.SpaceChaos.Common.Damage;
 using LeandroExhumed.SpaceChaos.Enemies.Meteor;
+using LeandroExhumed.SpaceChaos.Input;
 using LeandroExhumed.SpaceChaos.Player;
 using System;
 using System.Collections;
@@ -19,24 +20,32 @@ namespace LeandroExhumed.SpaceChaos.Stage
         private float timer = 0;
         private float secondsToCheckProbability = 10;
 
+        private readonly Pause pause;
+
         private readonly IAsteroindSpawningModel asteroindSpawning;
         private readonly IDamageableModel ship;
         private readonly ILifeModel life;
         private readonly IScoreModel score;
-        
+
+        private readonly IInput input;
+
         private readonly MonoBehaviour monoBehaviour;
 
         public StageModel (
+            Pause pause,
             IAsteroindSpawningModel asteroindSpawning,
             IDamageableModel ship,
             ILifeModel life,
             IScoreModel score,
+            IInput input,
             MonoBehaviour monoBehaviour)
         {
+            this.pause = pause;
             this.asteroindSpawning = asteroindSpawning;
             this.ship = ship;
             this.life = life;
             this.score = score;
+            this.input = input;
             this.monoBehaviour = monoBehaviour;
         }
 
@@ -52,6 +61,8 @@ namespace LeandroExhumed.SpaceChaos.Stage
                 MeteorFacade meteor = asteroindSpawning.Spawn();
                 RegisterMeteor(meteor);
             }
+
+            input.OnPausePerformed += HandlePausePerformed;
         }
 
         public void Tick ()
@@ -74,6 +85,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
 
         public void End ()
         {
+            input.OnPausePerformed -= HandlePausePerformed;
             OnEnd?.Invoke();
         }
 
@@ -109,6 +121,16 @@ namespace LeandroExhumed.SpaceChaos.Stage
             {
                 End();
             }
+        }
+
+        private void HandlePausePerformed ()
+        {
+            if (Time.timeScale == 0)
+            {
+                return;
+            }
+
+            pause.Execute();
         }
 
         private IEnumerator PlayerRespawningDelayRoutine (IDamageableModel ship)

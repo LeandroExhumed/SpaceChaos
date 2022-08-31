@@ -55,6 +55,15 @@ namespace LeandroExhumed.SpaceChaos.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""09f25ad5-a3a3-4e61-9718-39cf9f59acfe"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -127,11 +136,22 @@ namespace LeandroExhumed.SpaceChaos.Input
                 {
                     ""name"": """",
                     ""id"": ""8a0e515b-b8bb-42f6-98e9-b212d72e3e22"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Shot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""782ce6e7-3f47-4f81-b2ce-c4efde789835"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -151,6 +171,7 @@ namespace LeandroExhumed.SpaceChaos.Input
             m_Gameplay_Steer = m_Gameplay.FindAction("Steer", throwIfNotFound: true);
             m_Gameplay_Thrust = m_Gameplay.FindAction("Thrust", throwIfNotFound: true);
             m_Gameplay_Shot = m_Gameplay.FindAction("Shot", throwIfNotFound: true);
+            m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -213,6 +234,7 @@ namespace LeandroExhumed.SpaceChaos.Input
         private readonly InputAction m_Gameplay_Steer;
         private readonly InputAction m_Gameplay_Thrust;
         private readonly InputAction m_Gameplay_Shot;
+        private readonly InputAction m_Gameplay_Pause;
         public struct GameplayActions
         {
             private @PlayerActions m_Wrapper;
@@ -220,6 +242,7 @@ namespace LeandroExhumed.SpaceChaos.Input
             public InputAction @Steer => m_Wrapper.m_Gameplay_Steer;
             public InputAction @Thrust => m_Wrapper.m_Gameplay_Thrust;
             public InputAction @Shot => m_Wrapper.m_Gameplay_Shot;
+            public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -238,6 +261,9 @@ namespace LeandroExhumed.SpaceChaos.Input
                     @Shot.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShot;
                     @Shot.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShot;
                     @Shot.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShot;
+                    @Pause.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
+                    @Pause.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
+                    @Pause.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
                 }
                 m_Wrapper.m_GameplayActionsCallbackInterface = instance;
                 if (instance != null)
@@ -251,6 +277,9 @@ namespace LeandroExhumed.SpaceChaos.Input
                     @Shot.started += instance.OnShot;
                     @Shot.performed += instance.OnShot;
                     @Shot.canceled += instance.OnShot;
+                    @Pause.started += instance.OnPause;
+                    @Pause.performed += instance.OnPause;
+                    @Pause.canceled += instance.OnPause;
                 }
             }
         }
@@ -269,6 +298,7 @@ namespace LeandroExhumed.SpaceChaos.Input
             void OnSteer(InputAction.CallbackContext context);
             void OnThrust(InputAction.CallbackContext context);
             void OnShot(InputAction.CallbackContext context);
+            void OnPause(InputAction.CallbackContext context);
         }
     }
 }

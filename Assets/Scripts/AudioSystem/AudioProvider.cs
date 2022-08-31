@@ -6,7 +6,7 @@ namespace LeandroExhumed.SpaceChaos.Audio
     {
         public void PlayOneShot (SoundType soundType)
         {
-            Debug.Log("Sound played");
+            
         }
     }
 }
