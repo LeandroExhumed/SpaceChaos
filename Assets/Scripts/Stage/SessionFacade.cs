@@ -6,10 +6,10 @@ namespace LeandroExhumed.SpaceChaos.Session
 {
     public class SessionFacade : MonoBehaviour, ISessionModel
     {
-        public event Action OnStageEnded
+        public event Action OnStageCompleted
         {
-            add => model.OnStageEnded += value;
-            remove => model.OnStageEnded -= value;
+            add => model.OnStageCompleted += value;
+            remove => model.OnStageCompleted -= value;
         }
         public event Action OnNewStageStarted
         {

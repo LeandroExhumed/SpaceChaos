@@ -14,7 +14,7 @@
 
         public void Setup ()
         {
-            model.OnStageEnded += HandleEnd;
+            model.OnStageCompleted += HandleEnd;
             model.OnNewStageStarted += HandleNewStageStarted;
         }
 
@@ -30,7 +30,7 @@
 
         public void Dispose ()
         {
-            model.OnStageEnded -= HandleEnd;
+            model.OnStageCompleted -= HandleEnd;
             model.OnNewStageStarted -= HandleNewStageStarted;
         }
     }

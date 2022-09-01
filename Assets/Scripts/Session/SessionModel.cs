@@ -7,7 +7,7 @@ namespace LeandroExhumed.SpaceChaos.Session
 {
     public class SessionModel : ISessionModel
     {
-        public event Action OnStageEnded;
+        public event Action OnStageCompleted;
         public event Action OnNewStageStarted;
 
         private const float TIME_TO_NEXT_STAGE = 3f;
@@ -25,17 +25,17 @@ namespace LeandroExhumed.SpaceChaos.Session
 
         public void Initialize ()
         {
-            stage.OnEnd += HandleStageEnd;
+            stage.OnCompleted += HandleStageCompleted;
             stage.Initialize();
             stage.Begin(4);
         }
 
-        private void HandleStageEnd ()
+        private void HandleStageCompleted ()
         {
             currentStage++;
             monoBehaviour.StartCoroutine(NextStagePassageDelayRoutine());
 
-            OnStageEnded?.Invoke();
+            OnStageCompleted?.Invoke();
         }
 
         private IEnumerator NextStagePassageDelayRoutine ()
@@ -48,7 +48,7 @@ namespace LeandroExhumed.SpaceChaos.Session
 
         public void Dispose ()
         {
-            stage.OnEnd -= HandleStageEnd;
+            stage.OnCompleted -= HandleStageCompleted;
         }
     }
 }

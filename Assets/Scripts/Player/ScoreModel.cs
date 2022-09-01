@@ -7,7 +7,7 @@ namespace LeandroExhumed.SpaceChaos.Player
         public event Action<int> OnScoreChanged;
         public event Action OnAdvancedScoreReached;
 
-        private int Score
+        public int Score
         {
             get => score;
             set

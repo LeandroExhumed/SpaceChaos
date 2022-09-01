@@ -5,7 +5,7 @@ namespace LeandroExhumed.SpaceChaos.Session
     public interface ISessionModel : IDisposable
     {
         event Action OnNewStageStarted;
-        event Action OnStageEnded;
+        event Action OnStageCompleted;
 
         void Initialize ();
     }

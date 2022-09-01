@@ -2,6 +2,7 @@
 using LeandroExhumed.SpaceChaos.Enemies.Meteor;
 using LeandroExhumed.SpaceChaos.Input;
 using LeandroExhumed.SpaceChaos.Player;
+using LeandroExhumed.SpaceChaos.UI.GameOverScreen;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -10,8 +11,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
 {
     public class StageModel : IStageModel
     {
-        public event Action OnEnd;
-        public event Action OnGameOver;
+        public event Action OnCompleted;
 
         private const float RESPAWN_DELAY = 4f;
 
@@ -27,6 +27,8 @@ namespace LeandroExhumed.SpaceChaos.Stage
         private readonly ILifeModel life;
         private readonly IScoreModel score;
 
+        private readonly IGameOverMenuModel gameOverMenu;
+
         private readonly IInput input;
 
         private readonly MonoBehaviour monoBehaviour;
@@ -37,6 +39,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
             IDamageableModel ship,
             ILifeModel life,
             IScoreModel score,
+            IGameOverMenuModel gameOverMenu,
             IInput input,
             MonoBehaviour monoBehaviour)
         {
@@ -45,6 +48,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
             this.ship = ship;
             this.life = life;
             this.score = score;
+            this.gameOverMenu = gameOverMenu;
             this.input = input;
             this.monoBehaviour = monoBehaviour;
         }
@@ -83,10 +87,17 @@ namespace LeandroExhumed.SpaceChaos.Stage
             timer += Time.deltaTime;
         }
 
-        public void End ()
+        private void End (bool endedByGameOver)
         {
             input.OnPausePerformed -= HandlePausePerformed;
-            OnEnd?.Invoke();
+            if (endedByGameOver)
+            {
+                gameOverMenu.Setup(score.Score);
+            }
+            else
+            {
+                OnCompleted?.Invoke();
+            }
         }
 
         private void RegisterMeteor (MeteorFacade meteor)
@@ -98,14 +109,17 @@ namespace LeandroExhumed.SpaceChaos.Stage
 
         public void HandleShipDeath (DeathInfo ship)
         {
+            Action onDelayOver;
             if (life.Life == 0)
             {
-                OnGameOver?.Invoke();
+                onDelayOver = () => End(true);
             }
             else
             {
-                monoBehaviour.StartCoroutine(PlayerRespawningDelayRoutine(ship.Damageable));
+                onDelayOver = () => ship.Damageable.Resurrect();
             }
+
+            monoBehaviour.StartCoroutine(PlayerRespawningDelayRoutine(onDelayOver));
         }
 
         private void HandleNewPiece (MeteorFacade piece)
@@ -119,7 +133,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
             score.AddPoints(deathInfo.XPReward);
             if (enemies == 0)
             {
-                End();
+                End(false);
             }
         }
 
@@ -133,10 +147,10 @@ namespace LeandroExhumed.SpaceChaos.Stage
             pause.Execute();
         }
 
-        private IEnumerator PlayerRespawningDelayRoutine (IDamageableModel ship)
+        private IEnumerator PlayerRespawningDelayRoutine (Action onDelayOver)
         {
             yield return new WaitForSeconds(RESPAWN_DELAY);
-            ship.Resurrect();
+            onDelayOver.Invoke();
         }
 
         public void Dispose ()

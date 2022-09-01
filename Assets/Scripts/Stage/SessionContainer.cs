@@ -2,6 +2,7 @@ using LeandroExhumed.SpaceChaos.Common.Damage;
 using LeandroExhumed.SpaceChaos.Enemies.Meteor;
 using LeandroExhumed.SpaceChaos.Player;
 using LeandroExhumed.SpaceChaos.Stage;
+using LeandroExhumed.SpaceChaos.UI.GameOverScreen;
 using UnityEngine;
 using Zenject;
 
@@ -14,6 +15,8 @@ namespace LeandroExhumed.SpaceChaos.Session
 
         [SerializeField]
         private SessionView view;
+        [SerializeField]
+        private GameOverMenuFacade gameOverMenu;
         [SerializeField]
         private PlayerUIView playerUIVIew;
 
@@ -29,6 +32,7 @@ namespace LeandroExhumed.SpaceChaos.Session
             Container.Bind<ILifeModel>().To<LifeModel>().AsSingle();
             Container.Bind<IScoreModel>().To<ScoreModel>().AsSingle();
 
+            Container.Bind<IGameOverMenuModel>().FromInstance(gameOverMenu).AsSingle();
             Container.BindInstance(playerUIVIew).AsSingle();
 
             ResolveStage();

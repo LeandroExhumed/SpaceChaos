@@ -7,6 +7,8 @@ namespace LeandroExhumed.SpaceChaos.Player
         event Action OnAdvancedScoreReached;
         event Action<int> OnScoreChanged;
 
+        int Score { get; }
+
         void AddPoints (int points);
         void Initialize ();
     }
