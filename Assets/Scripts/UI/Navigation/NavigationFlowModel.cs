@@ -22,6 +22,11 @@ namespace LeandroExhumed.UI.Navigation
 
         private readonly Stack<INavigableModel> navigableElements = new();
 
+        public void SetInitialElement (INavigableModel element)
+        {
+            navigableElements.Push(element);
+        }
+
         public void OpenScreen (INavigableModel element)
         {
             NavigateTo(element);

@@ -26,6 +26,8 @@ namespace LeandroExhumed.UI.Navigation
             controller.Setup();
         }
 
+        public void SetInitialElement (INavigableModel element) => model.SetInitialElement(element);
+
         public void OpenScreen (INavigableModel element) => model.OpenScreen(element);
 
         public void RequestBack () => model.RequestBack();

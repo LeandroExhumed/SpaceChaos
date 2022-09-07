@@ -54,7 +54,6 @@ namespace LeandroExhumed.SpaceChaos.Player
 
             life.Initialize(3);
             score.Initialize();
-            input.SetActive(true);
         }
 
         public void Steer (float direction) => movement.Steer(direction);

@@ -5,7 +5,13 @@ namespace LeandroExhumed.SpaceChaos
 {
     public static class SceneLoader
     {
+        private const string GAMEPLAY = "Gameplay";
         private const string MAIN_MENU = "MainMenu";
+
+        public static void LoadGameplayScene ()
+        {
+            LoadScene(GAMEPLAY);
+        }
 
         public static void ReloadScene ()
         {

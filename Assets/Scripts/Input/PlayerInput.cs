@@ -18,6 +18,8 @@ namespace LeandroExhumed.SpaceChaos.Input
 
             actions.Gameplay.Shot.performed += (ctx) => OnShotPerformed?.Invoke();
             actions.Gameplay.Pause.performed += (ctx) => OnPausePerformed?.Invoke();
+
+            SetActive(true);
         }
 
         public void SetActive (bool value)

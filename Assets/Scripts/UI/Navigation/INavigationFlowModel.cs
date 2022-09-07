@@ -9,5 +9,6 @@ namespace LeandroExhumed.UI.Navigation
 
         void OpenScreen (INavigableModel element);
         void RequestBack ();
+        void SetInitialElement (INavigableModel element);
     }
 }
