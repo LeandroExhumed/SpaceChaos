@@ -30,6 +30,11 @@ namespace LeandroExhumed.SpaceChaos.Session
             stage.Begin(4);
         }
 
+        public void Tick ()
+        {
+            stage.Tick();
+        }
+
         private void HandleStageCompleted ()
         {
             currentStage++;

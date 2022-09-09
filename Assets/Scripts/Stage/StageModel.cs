@@ -1,5 +1,6 @@
 ﻿using LeandroExhumed.SpaceChaos.Common.Damage;
 using LeandroExhumed.SpaceChaos.Enemies.Meteor;
+using LeandroExhumed.SpaceChaos.Enemies.UFO;
 using LeandroExhumed.SpaceChaos.Input;
 using LeandroExhumed.SpaceChaos.Player;
 using LeandroExhumed.SpaceChaos.UI.GameOverScreen;
@@ -18,11 +19,15 @@ namespace LeandroExhumed.SpaceChaos.Stage
         private int enemies;
 
         private float timer = 0;
-        private float secondsToCheckProbability = 10;
+        private float secondsToCheckProbability = 10f;
+
+        private bool onAdvancedScore = false;
 
         private readonly Pause pause;
 
         private readonly IAsteroindSpawningModel asteroindSpawning;
+        private readonly UFOFactory ufoFactory;
+
         private readonly IDamageableModel ship;
         private readonly ILifeModel life;
         private readonly IScoreModel score;
@@ -36,6 +41,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
         public StageModel (
             Pause pause,
             IAsteroindSpawningModel asteroindSpawning,
+            UFOFactory ufoFactory,
             IDamageableModel ship,
             ILifeModel life,
             IScoreModel score,
@@ -45,6 +51,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
         {
             this.pause = pause;
             this.asteroindSpawning = asteroindSpawning;
+            this.ufoFactory = ufoFactory;
             this.ship = ship;
             this.life = life;
             this.score = score;
@@ -56,6 +63,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
         public void Initialize ()
         {
             ship.OnDeath += HandleShipDeath;
+            score.OnAdvancedScoreReached += HandleAdvancedScoreReached;
         }
 
         public void Begin (int startAsteroidsAmount)
@@ -76,9 +84,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
                 float probability = UnityEngine.Random.value;
                 if (probability >= 0.5f)
                 {
-                    //ufoSpawner.createUFO();
-                    //enemies++;
-                    Debug.Log("UFO spawned");
+                    CreateUFO();
                 }
 
                 timer = 0;
@@ -102,9 +108,37 @@ namespace LeandroExhumed.SpaceChaos.Stage
 
         private void RegisterMeteor (MeteorFacade meteor)
         {
-            meteor.OnDeath += HandleMeteorDestruction;
+            RegisterEnemy(meteor);
             meteor.OnNewPiece += HandleNewPiece;
+        }
+
+        private void RegisterEnemy (IDamageableModel enemy)
+        {
+            enemy.OnDeath += HandleEnemyDeath;
             enemies++;
+        }
+
+        private void CreateUFO ()
+        {
+            UFOFacade ufo;
+            if (onAdvancedScore)
+            {
+                ufo = ufoFactory.Spawn(UFOType.Small);
+            }
+            else
+            {
+                float probability = UnityEngine.Random.value;
+                if (probability > 0.5f)
+                {
+                    ufo = ufoFactory.Spawn(UFOType.Big);
+                }
+                else
+                {
+                    ufo = ufoFactory.Spawn(UFOType.Small);
+                }
+            }
+
+            RegisterEnemy(ufo);
         }
 
         public void HandleShipDeath (DeathInfo ship)
@@ -122,12 +156,17 @@ namespace LeandroExhumed.SpaceChaos.Stage
             monoBehaviour.StartCoroutine(PlayerRespawningDelayRoutine(onDelayOver));
         }
 
+        private void HandleAdvancedScoreReached ()
+        {
+            onAdvancedScore = true;
+        }
+
         private void HandleNewPiece (MeteorFacade piece)
         {
             RegisterMeteor(piece);
         }
 
-        private void HandleMeteorDestruction (DeathInfo deathInfo)
+        private void HandleEnemyDeath (DeathInfo deathInfo)
         {
             enemies--;
             score.AddPoints(deathInfo.XPReward);

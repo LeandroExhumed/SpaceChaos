@@ -8,5 +8,6 @@ namespace LeandroExhumed.SpaceChaos.Session
         event Action OnStageCompleted;
 
         void Initialize ();
+        void Tick ();
     }
 }

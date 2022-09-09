@@ -9,6 +9,9 @@ namespace LeandroExhumed.SpaceChaos.Constants
         public static readonly float BottomLimit;
         public static readonly float TopLimit;
 
+        public static float RandomXPosition => Random.Range(LeftLimit, RightLimit);
+        public static float RandomYPosition => Random.Range(BottomLimit, TopLimit);
+
         static ScreenPositions ()
         {
             Camera camera = Camera.main;

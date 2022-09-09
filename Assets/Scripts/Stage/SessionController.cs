@@ -16,6 +16,12 @@
         {
             model.OnStageCompleted += HandleEnd;
             model.OnNewStageStarted += HandleNewStageStarted;
+            view.OnUpdate += HandleViewUpdate;
+        }
+
+        private void HandleViewUpdate ()
+        {
+            model.Tick();
         }
 
         private void HandleEnd ()
@@ -32,6 +38,7 @@
         {
             model.OnStageCompleted -= HandleEnd;
             model.OnNewStageStarted -= HandleNewStageStarted;
+            view.OnUpdate -= HandleViewUpdate;
         }
     }
 }

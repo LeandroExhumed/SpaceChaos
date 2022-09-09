@@ -1,5 +1,6 @@
 using LeandroExhumed.SpaceChaos.Common.Damage;
 using LeandroExhumed.SpaceChaos.Enemies.Meteor;
+using LeandroExhumed.SpaceChaos.Enemies.UFO;
 using LeandroExhumed.SpaceChaos.Player;
 using LeandroExhumed.SpaceChaos.Stage;
 using LeandroExhumed.SpaceChaos.UI.GameOverScreen;
@@ -20,8 +21,13 @@ namespace LeandroExhumed.SpaceChaos.Session
         [SerializeField]
         private PlayerUIView playerUIVIew;
 
+        [Header("Enemies")]
         [SerializeField]
         private MeteorFacade meteorPrefab;
+        [SerializeField]
+        private UFOFacade smallUFOPrefab;
+        [SerializeField]
+        private UFOFacade bigUFOPrefab;
 
         public override void InstallBindings ()
         {
@@ -50,7 +56,12 @@ namespace LeandroExhumed.SpaceChaos.Session
             Container.Bind<IStageModel>().To<StageModel>().AsSingle();
             Container.BindFactory<MeteorFacade, MeteorFacade.Factory>()
                 .FromComponentInNewPrefab(meteorPrefab);
+            Container.BindFactory<UFOFacade, UFOFacade.Factory>()
+                .FromComponentInNewPrefab(smallUFOPrefab);
+            Container.BindFactory<UFOFacade, UFOFacade.Factory>()
+                .FromComponentInNewPrefab(bigUFOPrefab);
             Container.Bind<IAsteroindSpawningModel>().To<AsteroindSpawningModel>().AsSingle();
+            Container.Bind<UFOFactory>().AsSingle();
         }
     }
 }

@@ -768,6 +768,10 @@ MonoBehaviour:
   playerUIVIew: {fileID: 1042179447}
   meteorPrefab: {fileID: 5894518605943296765, guid: 5bd53b77202f93441a0e2ed956db7714,
     type: 3}
+  smallUFOPrefab: {fileID: 6581458159019501378, guid: c5d6caf49d1a0744aaf7ba29b5db10a7,
+    type: 3}
+  bigUFOPrefab: {fileID: 7857154278039454070, guid: 67b6031828d2473449138a85f4ef4724,
+    type: 3}
 --- !u!114 &106333979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1611,7 +1615,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   session: {fileID: 106333977}
-  navigationFlow: {fileID: 715690075}
   modal: {fileID: 1715713372}
   pauseMenu: {fileID: 1028512234}
 --- !u!114 &833368836

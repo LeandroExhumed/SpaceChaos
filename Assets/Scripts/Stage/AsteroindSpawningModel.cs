@@ -1,4 +1,5 @@
-﻿using LeandroExhumed.SpaceChaos.Enemies.Meteor;
+﻿using LeandroExhumed.SpaceChaos.Constants;
+using LeandroExhumed.SpaceChaos.Enemies.Meteor;
 using UnityEngine;
 
 namespace LeandroExhumed.SpaceChaos.Stage
@@ -7,12 +8,10 @@ namespace LeandroExhumed.SpaceChaos.Stage
     {
         private const float SAFE_SPAWN_RADIUS = 4F;
 
-        private readonly Camera camera;
         private readonly MeteorFacade.Factory meteorFactory;
 
-        public AsteroindSpawningModel (Camera camera, MeteorFacade.Factory meteorFactory)
+        public AsteroindSpawningModel (MeteorFacade.Factory meteorFactory)
         {
-            this.camera = camera;
             this.meteorFactory = meteorFactory;
         }
 
@@ -31,11 +30,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
 
             do
             {
-                float positionInX = Random.Range(0, Screen.width);
-                float positionInY = Random.Range(0, Screen.height);
-
-                randomPosition = camera.ScreenToWorldPoint(
-                    new Vector3(positionInX, positionInY, camera.transform.position.z));
+                randomPosition = new Vector3(ScreenPositions.RandomXPosition, ScreenPositions.RandomYPosition, 0f);
             } while (Physics.OverlapSphere(randomPosition, SAFE_SPAWN_RADIUS).Length > 0);
 
             return randomPosition;

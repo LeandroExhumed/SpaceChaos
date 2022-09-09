@@ -33,6 +33,8 @@ namespace LeandroExhumed.SpaceChaos.Session
             model.Initialize();
         }
 
+        public void Tick () => model.Tick();
+
         private void OnDestroy ()
         {
             Dispose();
