@@ -5,7 +5,7 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
 {
     public class UFOFactory
     {
-        private const float SAFE_SPAWN_RADIUS = 4F;
+        private const float SAFE_SPAWN_RADIUS = 2F;
 
         private readonly UFOFacade.Factory[] meteorFactory;
 

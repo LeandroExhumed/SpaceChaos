@@ -52,9 +52,12 @@ namespace LeandroExhumed.SpaceChaos.Player
 
             controller.Setup();
 
+            Initialize();
             life.Initialize(3);
             score.Initialize();
         }
+
+        public void Initialize () => movement.Initialize();
 
         public void Steer (float direction) => movement.Steer(direction);
 
@@ -74,7 +77,5 @@ namespace LeandroExhumed.SpaceChaos.Player
         {
             controller.Dispose();
         }
-
-        public void Overflow () => movement.Overflow();
     }
 }

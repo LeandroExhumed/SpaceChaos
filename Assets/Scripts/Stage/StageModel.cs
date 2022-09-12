@@ -22,6 +22,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
         private float secondsToCheckProbability = 10f;
 
         private bool onAdvancedScore = false;
+        private bool hasGameOver = false;
 
         private readonly Pause pause;
 
@@ -98,6 +99,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
             input.OnPausePerformed -= HandlePausePerformed;
             if (endedByGameOver)
             {
+                hasGameOver = true;
                 gameOverMenu.Setup(score.Score);
             }
             else
@@ -111,11 +113,18 @@ namespace LeandroExhumed.SpaceChaos.Stage
             RegisterEnemy(meteor);
             meteor.OnNewPiece += HandleNewPiece;
         }
+        
+        private void RegisterUFO (UFOFacade ufo)
+        {
+            RegisterEnemy(ufo);
+            ufo.OnLeaving += HandleUFOLeaving;
+        }
 
         private void RegisterEnemy (IDamageableModel enemy)
         {
             enemy.OnDeath += HandleEnemyDeath;
             enemies++;
+            Debug.Log("(Added) " + enemies);
         }
 
         private void CreateUFO ()
@@ -138,7 +147,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
                 }
             }
 
-            RegisterEnemy(ufo);
+            RegisterUFO(ufo);
         }
 
         public void HandleShipDeath (DeathInfo ship)
@@ -166,10 +175,26 @@ namespace LeandroExhumed.SpaceChaos.Stage
             RegisterMeteor(piece);
         }
 
-        private void HandleEnemyDeath (DeathInfo deathInfo)
+        private void HandleUFOLeaving ()
         {
-            enemies--;
+            RemoveEnemy();
+        }
+
+        private void HandleEnemyDeath (DeathInfo deathInfo)
+        {            
             score.AddPoints(deathInfo.XPReward);
+            RemoveEnemy();
+        }
+
+        private void RemoveEnemy ()
+        {
+            if (hasGameOver)
+            {
+                return;
+            }
+
+            enemies--;
+            Debug.Log("(Removed) " + enemies);
             if (enemies == 0)
             {
                 End(false);

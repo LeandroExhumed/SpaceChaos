@@ -7,35 +7,32 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
 {
     public class MeteorController : IController
     {
-        private readonly IOffscreenMovementModel offscreenMovement;
+        private readonly IOffscreenDetectorModel offscreenDetector;
         private readonly ISplittableModel splitting;
         private readonly IDamageableModel health;
         private readonly MeteorView view;
-        private readonly OffscreenDetector offscreenDetector;
 
         private readonly AudioProvider audioProvider;
 
         public MeteorController (
-            IOffscreenMovementModel offscreenMovement,
+            IOffscreenDetectorModel offscreenDetector,
             ISplittableModel splitting,
             IDamageableModel health,
             MeteorView view,
-            OffscreenDetector offscreenDetector,
             AudioProvider audioProvider)
         {
-            this.offscreenMovement = offscreenMovement;
+            this.offscreenDetector = offscreenDetector;
             this.splitting = splitting;
             this.health = health;
             this.view = view;
-            this.offscreenDetector = offscreenDetector;
             this.audioProvider = audioProvider;
         }
 
         public void Setup ()
         {
             health.OnDeath += HandleDeath;
+            view.OnUpdate += HandleUpdate;
             view.OnCollision += HandleCollision;
-            offscreenDetector.OnOffscreen += HandleOffscreen;
         }
 
         private void HandleDeath (DeathInfo _)
@@ -43,6 +40,11 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
             splitting.Split();
             view.Destroy();
             audioProvider.PlayOneShot(SoundType.Explosion);
+        }
+
+        private void HandleUpdate ()
+        {
+            offscreenDetector.Tick();
         }
 
         private void HandleCollision (Collider collider)
@@ -55,16 +57,11 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
             health.TakeDamage();
         }
 
-        private void HandleOffscreen ()
-        {
-            offscreenMovement.Overflow();
-        }
-
         public void Dispose ()
         {
             health.OnDeath -= HandleDeath;
+            view.OnUpdate -= HandleUpdate;
             view.OnCollision -= HandleCollision;
-            offscreenDetector.OnOffscreen -= HandleOffscreen;
         }
     }
 }

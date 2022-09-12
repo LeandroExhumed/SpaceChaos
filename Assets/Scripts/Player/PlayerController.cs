@@ -9,12 +9,12 @@ namespace LeandroExhumed.SpaceChaos.Player
     public class PlayerController : IController
     {
         private readonly IMovementModel movement;
+        private readonly IOffscreenDetectorModel offscreenDetector;
         private readonly IShooterModel shooter;
         private readonly IDamageableModel health;
         private readonly ILifeModel life;
         private readonly IScoreModel score;
         private readonly PlayerView view;
-        private readonly OffscreenDetector offscreenDetector;
         private readonly PlayerUIView uiView;
         
         private readonly IInput input;
@@ -22,24 +22,24 @@ namespace LeandroExhumed.SpaceChaos.Player
 
         public PlayerController (
             IMovementModel movement,
+            IOffscreenDetectorModel offscreenDetector,
             IShooterModel shooter,
             IDamageableModel health,
             ILifeModel life,
             IScoreModel score,
             PlayerView view,
             PlayerUIView uiView,
-            OffscreenDetector offscreenDetector,
             IInput input,
             AudioProvider audioProvider)
         {
             this.movement = movement;
+            this.offscreenDetector = offscreenDetector;
             this.shooter = shooter;
             this.health = health;
             this.life = life;
             this.score = score;
             this.view = view;
             this.uiView = uiView;
-            this.offscreenDetector = offscreenDetector;
             this.input = input;
             this.audioProvider = audioProvider;
         }
@@ -55,7 +55,6 @@ namespace LeandroExhumed.SpaceChaos.Player
             score.OnAdvancedScoreReached += HandleAdvancedScoreReached;
             view.OnUpdate += HandleUpdate;
             view.OnCollision += HandleCollision;
-            offscreenDetector.OnOffscreen += HandleOffscreen;
             view.OnInvencibleBlinkinhEffectOver += HandleInvencibleBlinkinhEffectOver;
             input.OnShotPerformed += HandleShotPerformed;
         }
@@ -111,6 +110,7 @@ namespace LeandroExhumed.SpaceChaos.Player
         {
             movement.Steer(input.Steer);
             movement.Thrust(input.Thrust);
+            offscreenDetector.Tick();
         }
 
         private void HandleCollision (Collider collider)
@@ -121,11 +121,6 @@ namespace LeandroExhumed.SpaceChaos.Player
             }
 
             health.TakeDamage();
-        }
-
-        private void HandleOffscreen ()
-        {
-            movement.Overflow();
         }
 
         private void HandleShotPerformed ()
@@ -144,7 +139,6 @@ namespace LeandroExhumed.SpaceChaos.Player
             score.OnAdvancedScoreReached -= HandleAdvancedScoreReached;
             view.OnUpdate -= HandleUpdate;
             view.OnCollision -= HandleCollision;
-            offscreenDetector.OnOffscreen -= HandleOffscreen;
             view.OnInvencibleBlinkinhEffectOver -= HandleInvencibleBlinkinhEffectOver;
             input.OnShotPerformed -= HandleShotPerformed;
         }

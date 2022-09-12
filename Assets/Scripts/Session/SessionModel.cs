@@ -10,8 +10,9 @@ namespace LeandroExhumed.SpaceChaos.Session
         public event Action OnStageCompleted;
         public event Action OnNewStageStarted;
 
+        public int CurrentStage { get; private set; } = 1;
+
         private const float TIME_TO_NEXT_STAGE = 3f;
-        private int currentStage = 1;
 
         private readonly IStageModel stage;
 
@@ -37,7 +38,7 @@ namespace LeandroExhumed.SpaceChaos.Session
 
         private void HandleStageCompleted ()
         {
-            currentStage++;
+            CurrentStage++;
             monoBehaviour.StartCoroutine(NextStagePassageDelayRoutine());
 
             OnStageCompleted?.Invoke();
@@ -46,7 +47,7 @@ namespace LeandroExhumed.SpaceChaos.Session
         private IEnumerator NextStagePassageDelayRoutine ()
         {
             yield return new WaitForSeconds(TIME_TO_NEXT_STAGE);
-            stage.Begin(4 + (currentStage - 1));
+            stage.Begin(4 + (CurrentStage - 1));
 
             OnNewStageStarted?.Invoke();
         }

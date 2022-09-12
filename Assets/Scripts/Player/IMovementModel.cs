@@ -1,8 +1,9 @@
-﻿using System;
+﻿using LeandroExhumed.SpaceChaos.Common;
+using System;
 
 namespace LeandroExhumed.SpaceChaos.Player
 {
-    public interface IMovementModel
+    public interface IMovementModel : IOffscreenMovementModel
     {
         event Action<bool> OnThrusterNeedChanged;
 
@@ -10,6 +11,5 @@ namespace LeandroExhumed.SpaceChaos.Player
         void Thrust (float input);
         void Stop ();
         void Reset ();
-        void Overflow ();
     }
 }

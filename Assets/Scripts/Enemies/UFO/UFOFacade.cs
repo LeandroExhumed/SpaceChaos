@@ -1,4 +1,5 @@
-﻿using LeandroExhumed.SpaceChaos.Common.Damage;
+﻿using LeandroExhumed.SpaceChaos.Common;
+using LeandroExhumed.SpaceChaos.Common.Damage;
 using System;
 using UnityEngine;
 using Zenject;
@@ -17,10 +18,10 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
             add => health.OnResurrection += value;
             remove => health.OnResurrection -= value;
         }
-        public event Action OnRouteOver
+        public event Action OnLeaving
         {
-            add => routeMovement.OnRouteOver += value;
-            remove => routeMovement.OnRouteOver -= value;
+            add => routeMovement.OnLeaving += value;
+            remove => routeMovement.OnLeaving -= value;
         }
 
         private IRouteMovement routeMovement;
@@ -43,8 +44,6 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
         public void Initialize (Vector3 position) => routeMovement.Initialize(position);
 
         public void Tick () => routeMovement.Tick();
-
-        public void EndMovement () => routeMovement.EndMovement();
 
         public void TakeDamage () => health.TakeDamage();
 

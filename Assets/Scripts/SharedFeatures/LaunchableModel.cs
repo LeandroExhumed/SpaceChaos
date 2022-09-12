@@ -6,7 +6,7 @@ namespace LeandroExhumed.SpaceChaos.Common
     {
         private readonly float speed;
 
-        private readonly Transform transform;
+        protected readonly Transform transform;
         protected readonly Rigidbody rigidbody;
         protected Collider collider;
 
@@ -18,9 +18,9 @@ namespace LeandroExhumed.SpaceChaos.Common
             this.collider = collider;
         }
 
-        public void Initialize (Vector3 position, Quaternion rotation, Collider owner = null)
+        public virtual void Initialize (Vector3 position, Quaternion rotation, Collider owner = null)
         {
-            rigidbody.position = position;
+            transform.position = position;
             transform.rotation = rotation;
 
             if (owner != null)

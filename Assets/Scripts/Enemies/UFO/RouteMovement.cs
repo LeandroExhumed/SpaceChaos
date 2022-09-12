@@ -1,4 +1,5 @@
-﻿using LeandroExhumed.SpaceChaos.Constants;
+﻿using LeandroExhumed.SpaceChaos.Common;
+using LeandroExhumed.SpaceChaos.Constants;
 using System;
 using UnityEngine;
 
@@ -6,21 +7,25 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
 {
     public class RouteMovement : IRouteMovement
     {
-        public event Action OnRouteOver;
+        public event Action OnLeaving;
 
         private float speed = 5;
         private Vector3 randomPosition;
 
+        private readonly IOffscreenDetectorModel offscreenDetector;
         private readonly Transform transform;
 
-        public RouteMovement (Transform transform)
+        public RouteMovement (IOffscreenDetectorModel offscreenDetector, Transform transform)
         {
+            this.offscreenDetector = offscreenDetector;
             this.transform = transform;
         }
 
         public void Initialize (Vector3 position)
         {
             transform.position = position;
+
+            offscreenDetector.OnOffscreen += OnOffscreen;
 
             DefineNewDestination();
         }
@@ -36,9 +41,9 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
             }
         }
 
-        public void EndMovement ()
+        private void OnOffscreen (Edge edge)
         {
-            OnRouteOver?.Invoke();
+            OnLeaving?.Invoke();
         }
 
         private void DefineNewDestination ()

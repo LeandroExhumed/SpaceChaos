@@ -11,12 +11,12 @@ namespace LeandroExhumed.SpaceChaos.Projectile
 
         private readonly IProjectileModel model;
         private readonly ProjectileView view;
-        private readonly OffscreenDetector offscreenDetector;
+        private readonly IOffscreenDetectorModel offscreenDetector;
 
         public ProjectileController (
             IProjectileModel model,
             ProjectileView view,
-            OffscreenDetector offscreenDetector,
+            IOffscreenDetectorModel offscreenDetector,
             int[] targetLayers)
         {
             this.model = model;
@@ -28,8 +28,14 @@ namespace LeandroExhumed.SpaceChaos.Projectile
         public void Setup ()
         {
             model.OnDestroyed += HandleDestroyed;
+            view.OnUpdate += HandleUpdate;
             view.OnTriggerEntered += HandleTriggerEntered;
             offscreenDetector.OnOffscreen += HandleOffscreen;
+        }
+
+        private void HandleUpdate ()
+        {
+            offscreenDetector.Tick();
         }
 
         private void HandleTriggerEntered (Collider collider)
@@ -50,7 +56,7 @@ namespace LeandroExhumed.SpaceChaos.Projectile
             view.Destroy();
         }
 
-        private void HandleOffscreen ()
+        private void HandleOffscreen (Edge edge)
         {
             model.Destroy();
         }
@@ -58,6 +64,7 @@ namespace LeandroExhumed.SpaceChaos.Projectile
         public void Dispose ()
         {
             model.OnDestroyed -= HandleDestroyed;
+            view.OnUpdate -= HandleUpdate;
             view.OnTriggerEntered -= HandleTriggerEntered;
             offscreenDetector.OnOffscreen -= HandleOffscreen;
         }

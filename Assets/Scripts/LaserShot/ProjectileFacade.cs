@@ -33,7 +33,6 @@ namespace LeandroExhumed.SpaceChaos.Projectile
             => model.Initialize(position, rotation, owner);
 
         public void GetLaunched () => model.GetLaunched();
-        public void HandleCollision (Collider colider) => model.HandleCollision(colider);
 
         public override void Reuse () => model.Reuse();
 

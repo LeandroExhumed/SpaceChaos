@@ -17,6 +17,8 @@ namespace LeandroExhumed.SpaceChaos.Session
             remove => model.OnNewStageStarted -= value;
         }
 
+        public int CurrentStage => model.CurrentStage;
+
         private ISessionModel model;
         private IController controller;
 

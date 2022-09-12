@@ -5,6 +5,7 @@ namespace LeandroExhumed.SpaceChaos.Projectile
 {
     public class ProjectileView : MonoBehaviour
     {
+        public event Action OnUpdate;
         public event Action<Collider> OnTriggerEntered;
 
         private GameObject parent;
@@ -12,6 +13,11 @@ namespace LeandroExhumed.SpaceChaos.Projectile
         private void Awake ()
         {
             parent = transform.parent.gameObject;
+        }
+
+        private void Update ()
+        {
+            OnUpdate?.Invoke();
         }
 
         private void OnTriggerEnter (Collider other)

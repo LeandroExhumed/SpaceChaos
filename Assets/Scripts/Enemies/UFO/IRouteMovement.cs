@@ -1,14 +1,14 @@
-﻿using System;
+﻿using LeandroExhumed.SpaceChaos.Common;
+using System;
 using UnityEngine;
 
 namespace LeandroExhumed.SpaceChaos.Enemies.UFO
 {
     public interface IRouteMovement
     {
-        event Action OnRouteOver;
+        event Action OnLeaving;
 
         void Initialize (Vector3 position);
         void Tick ();
-        void EndMovement ();
     }
 }

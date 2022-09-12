@@ -6,7 +6,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
 {
     public class AsteroindSpawningModel : IAsteroindSpawningModel
     {
-        private const float SAFE_SPAWN_RADIUS = 4F;
+        private const float SAFE_SPAWN_RADIUS = 2F;
 
         private readonly MeteorFacade.Factory meteorFactory;
 

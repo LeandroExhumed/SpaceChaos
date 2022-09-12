@@ -7,35 +7,38 @@ namespace LeandroExhumed.SpaceChaos.Common
     {
         private float OffSet => transform.localScale.x / 2f;
 
+        private readonly IOffscreenDetectorModel offscreenDetector;
+
         private readonly Transform transform;
 
-        private readonly Camera camera;
-
-        public OffscreenMovementModel (Transform transform, Rigidbody rigidbody, Camera camera)
+        public OffscreenMovementModel (IOffscreenDetectorModel offscreenDetector, Transform transform)
         {
             this.transform = transform;
-            this.camera = camera;
+            this.offscreenDetector = offscreenDetector;
         }
 
-        public void Overflow ()
+        public void Initialize ()
         {
-            Vector3 screenPos = camera.WorldToScreenPoint(transform.position);
+            offscreenDetector.OnOffscreen += HandleOffscreen;
+        }
+
+        private void HandleOffscreen (Edge edge)
+        {
             Vector3 newPosition = transform.position;
-            if (screenPos.x < 0)
+            switch(edge)
             {
-                newPosition.x = ScreenPositions.RightLimit + OffSet;
-            }
-            else if (screenPos.x > Screen.width)
-            {
-                newPosition.x = ScreenPositions.LeftLimit - OffSet;
-            }
-            if (screenPos.y < 0)
-            {
-                newPosition.y = ScreenPositions.TopLimit + OffSet;
-            }
-            else if (screenPos.y > Screen.height)
-            {
-                newPosition.y = ScreenPositions.BottomLimit - OffSet;
+                case Edge.Left:
+                    newPosition.x = ScreenPositions.RightLimit - OffSet;
+                    break;
+                case Edge.Right:
+                    newPosition.x = ScreenPositions.LeftLimit + OffSet;
+                    break;
+                case Edge.Bottom:
+                    newPosition.y = ScreenPositions.TopLimit - OffSet;
+                    break;
+                case Edge.Top:
+                    newPosition.y = ScreenPositions.BottomLimit + OffSet;
+                    break;
             }
 
             transform.position = newPosition;

@@ -9,17 +9,22 @@ namespace LeandroExhumed.SpaceChaos.Projectile
         public event Action OnReused;
         public event Action OnDestroyed;
 
+        private readonly IOffscreenDetectorModel offscreenDetector;
+
         public ProjectileModel (
+            IOffscreenDetectorModel offscreenDetector,
             float speed,
             Transform transform,
             Rigidbody rigidbody,
             Collider collider) : base (speed, transform, rigidbody, collider)
         {
+            this.offscreenDetector = offscreenDetector;
         }
 
-        public void HandleCollision (Collider colider)
+        public override void Initialize (Vector3 position, Quaternion rotation, Collider owner = null)
         {
-            
+            base.Initialize(position, rotation, owner);
+            offscreenDetector.OnOffscreen += OnOffscreen;
         }
 
         public void Reuse ()
@@ -31,6 +36,11 @@ namespace LeandroExhumed.SpaceChaos.Projectile
         public void Destroy ()
         {
             OnDestroyed?.Invoke();
+        }
+
+        private void OnOffscreen (Edge edge)
+        {
+            Destroy();
         }
     }
 }

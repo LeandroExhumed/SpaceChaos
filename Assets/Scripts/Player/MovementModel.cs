@@ -19,9 +19,9 @@ namespace LeandroExhumed.SpaceChaos.Player
         private readonly Rigidbody rigidbody;
 
         public MovementModel (
+            IOffscreenDetectorModel offscreenDetector,
             Transform transform,
-            Rigidbody rigidbody,
-            Camera camera) : base (transform, rigidbody, camera)
+            Rigidbody rigidbody) : base (offscreenDetector, transform)
         {
             this.transform = transform;
             this.rigidbody = rigidbody;

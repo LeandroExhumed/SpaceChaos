@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8047686523203658130}
   - component: {fileID: 3164874948263593692}
-  m_Layer: 0
+  - component: {fileID: 5240543255379916603}
+  m_Layer: 10
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,6 +46,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 1469075895230268, guid: 5ef5ce58ad3c4e64a874fe544d698347, type: 3}
+--- !u!65 &5240543255379916603
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4166315486037194408}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9032495766938096310
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +71,7 @@ GameObject:
   - component: {fileID: 5281877562081591573}
   - component: {fileID: 5469306875990719389}
   - component: {fileID: 7572870300061580085}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: UFO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +124,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0a4229a023c20949adb91be99eb61dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoShotingType: 0
+  gunRotationSpeed: 8
   rewardXP: 80
+  weapons: []
+  projectilePrefab: {fileID: 4226146229584836966, guid: 355847f7192966b4e974fe0928650242,
+    type: 3}
 --- !u!114 &7572870300061580085
 MonoBehaviour:
   m_ObjectHideFlags: 0

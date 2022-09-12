@@ -22,9 +22,9 @@ namespace LeandroExhumed.SpaceChaos.Projectile
         private void ResolveMVC ()
         {
             Container.Bind<IProjectileModel>().To<ProjectileModel>().AsSingle();
+            Container.Bind<IOffscreenDetectorModel>().To<OffscreenDetectorModel>().AsSingle();
             Container.Bind<IController>().To<ProjectileController>().AsSingle();
             Container.BindInstance(GetComponentInChildren<ProjectileView>()).AsSingle();
-            Container.BindInstance(GetComponentInChildren<OffscreenDetector>()).AsSingle();
         }
 
         private void ResolveComponents ()

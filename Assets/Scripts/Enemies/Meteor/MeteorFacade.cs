@@ -25,14 +25,21 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
         }
 
         private ILaunchableModel launchable;
+        private IOffscreenMovementModel offscreenMovement;
         private ISplittableModel splitting;
         private IDamageableModel health;
         private IController controller;
 
         [Inject]
-        public void Constructor (ILaunchableModel launchable, ISplittableModel splitting, IDamageableModel health, IController controller)
+        public void Constructor (
+            ILaunchableModel launchable,
+            IOffscreenMovementModel offscreenMovement,
+            ISplittableModel splitting,
+            IDamageableModel health,
+            IController controller)
         {
             this.launchable = launchable;
+            this.offscreenMovement = offscreenMovement;
             this.splitting = splitting;
             this.health = health;
             this.controller = controller;
@@ -41,7 +48,10 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
         }
 
         public void Initialize (Vector3 position, Quaternion rotation, Collider owner = null)
-            => launchable.Initialize(position, rotation, owner);
+        {
+            launchable.Initialize(position, rotation, owner);
+            offscreenMovement.Initialize();
+        }
 
         public void GetLaunched () => launchable.GetLaunched();
 

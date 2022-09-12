@@ -34,6 +34,7 @@ namespace LeandroExhumed.SpaceChaos.Session
             ResolveMVC();
             Container.BindInstance(GetComponent<MonoBehaviour>()).AsSingle();
 
+            Container.BindInstance(player).AsSingle();
             Container.Bind<IDamageableModel>().FromInstance(player).AsSingle();
             Container.Bind<ILifeModel>().To<LifeModel>().AsSingle();
             Container.Bind<IScoreModel>().To<ScoreModel>().AsSingle();
