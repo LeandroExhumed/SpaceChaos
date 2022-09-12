@@ -11,34 +11,48 @@ namespace LeandroExhumed.SpaceChaos.Session
         public event Action OnNewStageStarted;
 
         public int CurrentStage { get; private set; } = 1;
+        private IStageModel stage;
 
         private const float TIME_TO_NEXT_STAGE = 3f;
 
-        private readonly IStageModel stage;
-
+        private readonly SessionData data;
+        private readonly IStageModel.Factory stageFactory;
         private readonly MonoBehaviour monoBehaviour;
 
-        public SessionModel (IStageModel stage, MonoBehaviour monoBehaviour)
+        public SessionModel (SessionData data, IStageModel.Factory stageFactory, MonoBehaviour monoBehaviour)
         {
-            this.stage = stage;
+            this.data = data;
+            this.stageFactory = stageFactory;
             this.monoBehaviour = monoBehaviour;
         }
 
         public void Initialize ()
         {
-            stage.OnCompleted += HandleStageCompleted;
-            stage.Initialize();
-            stage.Begin(4);
+            CreateStage();
         }
 
         public void Tick ()
         {
+            if (stage == null)
+            {
+                return;
+            }
+
             stage.Tick();
+        }
+
+        private void CreateStage ()
+        {
+            stage = stageFactory.Create();
+            stage.OnCompleted += HandleStageCompleted;
+            stage.Initialize();
+            stage.Begin(data.StartMeteorAmount + (CurrentStage - 1));
         }
 
         private void HandleStageCompleted ()
         {
             CurrentStage++;
+            stage = null;
             monoBehaviour.StartCoroutine(NextStagePassageDelayRoutine());
 
             OnStageCompleted?.Invoke();
@@ -47,7 +61,7 @@ namespace LeandroExhumed.SpaceChaos.Session
         private IEnumerator NextStagePassageDelayRoutine ()
         {
             yield return new WaitForSeconds(TIME_TO_NEXT_STAGE);
-            stage.Begin(4 + (CurrentStage - 1));
+            CreateStage();
 
             OnNewStageStarted?.Invoke();
         }

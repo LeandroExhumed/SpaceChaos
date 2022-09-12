@@ -16,7 +16,7 @@ namespace LeandroExhumed.SpaceChaos.Common
 
         private readonly Pool pool;
 
-        private Collider collider;
+        private readonly Collider collider;
 
         public ShooterModel (
             Transform[] weapons,

@@ -9925,6 +9925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95b58f0fc125e7c47ab132f7dcf6e2a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 14c8d2068e07cb946afc6a414d0275ef, type: 2}
   weapons:
   - {fileID: 6225370700639835809}
   - {fileID: 9160857732666458313}

@@ -6,17 +6,15 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
     public abstract class AutoShotingModel : IAutoShotingModel
     {
         private float timer = 0;
-        private float shotingRate = 1;
-
-        protected readonly float gunRotationSpeed;
 
         protected readonly Transform[] guns;
 
+        protected readonly UFOData data;
         private readonly IShooterModel shooter;
 
-        public AutoShotingModel (float gunRotationSpeed, Transform[] guns, IShooterModel shooter)
+        public AutoShotingModel (UFOData data, Transform[] guns, IShooterModel shooter)
         {
-            this.gunRotationSpeed = gunRotationSpeed;
+            this.data = data;
             this.guns = guns;
             this.shooter = shooter;
         }
@@ -25,7 +23,7 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
         {
             Rotate();
 
-            if (timer >= shotingRate)
+            if (timer >= data.FireRate)
             {
                 timer = 0;
                 Shot();

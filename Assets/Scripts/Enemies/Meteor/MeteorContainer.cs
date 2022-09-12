@@ -12,11 +12,15 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
         [SerializeField]
         private int rewardXP = 80;
 
+        [SerializeField]
+        private MeteorData data;
+
         public override void InstallBindings ()
         {
             ResolveMVC();
-            Container.BindInstance(rewardXP).AsSingle();
-            Container.BindInstance(speed).AsSingle();
+            Container.BindInstance(data).AsSingle();
+            Container.BindInstance(data.Speed).AsSingle();
+            Container.BindInstance(data.RewardPoints).AsSingle();
             ResolveComponents();
         }
 

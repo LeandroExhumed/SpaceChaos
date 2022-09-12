@@ -40,6 +40,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5469306875990719389, guid: 12dfceaf07125ba4d8049db19478efb8,
         type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f864b2a9741f1e4ca5cd9373fd54f61,
+        type: 2}
+    - target: {fileID: 5469306875990719389, guid: 12dfceaf07125ba4d8049db19478efb8,
+        type: 3}
       propertyPath: rewardXP
       value: 320
       objectReference: {fileID: 0}

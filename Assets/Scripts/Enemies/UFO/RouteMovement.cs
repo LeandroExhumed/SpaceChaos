@@ -9,14 +9,15 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
     {
         public event Action OnLeaving;
 
-        private float speed = 5;
         private Vector3 randomPosition;
 
+        private readonly UFOData data;
         private readonly IOffscreenDetectorModel offscreenDetector;
         private readonly Transform transform;
 
-        public RouteMovement (IOffscreenDetectorModel offscreenDetector, Transform transform)
+        public RouteMovement (UFOData data, IOffscreenDetectorModel offscreenDetector, Transform transform)
         {
+            this.data = data;
             this.offscreenDetector = offscreenDetector;
             this.transform = transform;
         }
@@ -32,7 +33,7 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
 
         public void Tick ()
         {
-            float step = speed * Time.deltaTime;
+            float step = data.Speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, randomPosition, step);
 
             if (Vector3.Distance(transform.position, randomPosition) <= 0)

@@ -9,12 +9,16 @@ namespace LeandroExhumed.SpaceChaos.Player
     public class ShipContainer : MonoInstaller
     {
         [SerializeField]
+        private PlayerData data;
+
+        [SerializeField]
         private Transform[] weapons;
         [SerializeField]
         private PoolableObject projectilePrefab;
 
         public override void InstallBindings ()
         {
+            Container.BindInstance(data).AsSingle();
             ResolveMVC();
             ResolveComponents();
             ResolveWeapons();

@@ -84,6 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 80
   rewardXP: 80
+  data: {fileID: 11400000, guid: acc3d82845872d147a9477e972500eb8, type: 2}
 --- !u!114 &5894518605943296765
 MonoBehaviour:
   m_ObjectHideFlags: 0

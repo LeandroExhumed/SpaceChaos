@@ -50,6 +50,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5469306875990719389, guid: 12dfceaf07125ba4d8049db19478efb8,
         type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: 2e3fd44e07051ca4b88985490b252b1e,
+        type: 2}
+    - target: {fileID: 5469306875990719389, guid: 12dfceaf07125ba4d8049db19478efb8,
+        type: 3}
       propertyPath: weapons.Array.size
       value: 1
       objectReference: {fileID: 0}

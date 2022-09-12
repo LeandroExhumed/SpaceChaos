@@ -9,9 +9,9 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
 
         public PreciseShotingModel (
             Transform target,
-            float gunRotationSpeed,
+            UFOData data,
             Transform[] guns,
-            IShooterModel shooter) : base(gunRotationSpeed, guns, shooter)
+            IShooterModel shooter) : base(data, guns, shooter)
         {
             this.target = target;
         }
@@ -23,7 +23,8 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
                 for (int i = 0; i < guns.Length; i++)
                 {
                     var newRotation = Quaternion.LookRotation(target.position - guns[i].position, Vector3.forward);
-                    guns[i].rotation = Quaternion.Slerp(guns[i].rotation, newRotation, Time.deltaTime * gunRotationSpeed);
+                    guns[i].rotation = Quaternion.Slerp(
+                        guns[i].rotation, newRotation, Time.deltaTime * data.GunRotationSpeed);
                 }
             }
         }

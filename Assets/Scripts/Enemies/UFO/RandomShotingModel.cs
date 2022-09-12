@@ -8,15 +8,15 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
         private float gunsDirection;
 
         public RandomShotingModel (
-            float gunRotationSpeed,
+            UFOData data,
             Transform[] guns,
-            IShooterModel shooter) : base (gunRotationSpeed, guns, shooter) { }
+            IShooterModel shooter) : base (data, guns, shooter) { }
 
         protected override void Rotate ()
         {
             for (int i = 0; i < guns.Length; i++)
             {
-                guns[i].Rotate(0, -gunsDirection * gunRotationSpeed * Time.deltaTime, 0);
+                guns[i].Rotate(0, -gunsDirection * data.GunRotationSpeed * Time.deltaTime, 0);
             }
         }
 

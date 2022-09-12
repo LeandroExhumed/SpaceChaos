@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LeandroExhumed.SpaceChaos.Session;
+using System;
 
 namespace LeandroExhumed.SpaceChaos.Player
 {
@@ -18,14 +19,21 @@ namespace LeandroExhumed.SpaceChaos.Player
         }
 
         private bool isAdvanced = false;
-        private int pointsToReward = 10000;
-        private int pointsToAdvancedScore = 40000;
+        private int pointsToReward;
+
+        private readonly SessionData sessionData;
 
         private int score;
+
+        public ScoreModel (SessionData sessionData)
+        {
+            this.sessionData = sessionData;
+        }
 
         public void Initialize ()
         {
             Score = 0;
+            pointsToReward = sessionData.StartScoreToReward;
         }
 
         public void AddPoints (int points)
@@ -36,7 +44,7 @@ namespace LeandroExhumed.SpaceChaos.Player
                 pointsToReward += 10000;
             }
 
-            if (!isAdvanced && Score >= pointsToAdvancedScore)
+            if (!isAdvanced && Score >= sessionData.AdvancedScore)
             {
                 isAdvanced = true;
                 OnAdvancedScoreReached?.Invoke();

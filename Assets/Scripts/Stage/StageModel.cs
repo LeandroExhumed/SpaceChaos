@@ -3,6 +3,7 @@ using LeandroExhumed.SpaceChaos.Enemies.Meteor;
 using LeandroExhumed.SpaceChaos.Enemies.UFO;
 using LeandroExhumed.SpaceChaos.Input;
 using LeandroExhumed.SpaceChaos.Player;
+using LeandroExhumed.SpaceChaos.Session;
 using LeandroExhumed.SpaceChaos.UI.GameOverScreen;
 using System;
 using System.Collections;
@@ -17,12 +18,12 @@ namespace LeandroExhumed.SpaceChaos.Stage
         private const float RESPAWN_DELAY = 4f;
 
         private int enemies;
-
-        private float timer = 0;
-        private float secondsToCheckProbability = 10f;
-
         private bool onAdvancedScore = false;
         private bool hasGameOver = false;
+
+        private float timer = 0;
+
+        private readonly SessionData sessionData;
 
         private readonly Pause pause;
 
@@ -40,6 +41,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
         private readonly MonoBehaviour monoBehaviour;
 
         public StageModel (
+            SessionData sessionData,
             Pause pause,
             IAsteroindSpawningModel asteroindSpawning,
             UFOFactory ufoFactory,
@@ -50,6 +52,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
             IInput input,
             MonoBehaviour monoBehaviour)
         {
+            this.sessionData = sessionData;
             this.pause = pause;
             this.asteroindSpawning = asteroindSpawning;
             this.ufoFactory = ufoFactory;
@@ -80,7 +83,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
 
         public void Tick ()
         {
-            if (timer >= secondsToCheckProbability)
+            if (timer >= sessionData.UFOSpawningInterval)
             {
                 float probability = UnityEngine.Random.value;
                 if (probability >= 0.5f)
@@ -124,7 +127,6 @@ namespace LeandroExhumed.SpaceChaos.Stage
         {
             enemy.OnDeath += HandleEnemyDeath;
             enemies++;
-            Debug.Log("(Added) " + enemies);
         }
 
         private void CreateUFO ()
@@ -194,7 +196,6 @@ namespace LeandroExhumed.SpaceChaos.Stage
             }
 
             enemies--;
-            Debug.Log("(Removed) " + enemies);
             if (enemies == 0)
             {
                 End(false);

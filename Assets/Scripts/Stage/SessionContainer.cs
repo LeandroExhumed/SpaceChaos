@@ -12,6 +12,9 @@ namespace LeandroExhumed.SpaceChaos.Session
     public class SessionContainer : MonoInstaller
     {
         [SerializeField]
+        private SessionData data;
+
+        [SerializeField]
         private ShipFacade player;
 
         [SerializeField]
@@ -32,6 +35,7 @@ namespace LeandroExhumed.SpaceChaos.Session
         public override void InstallBindings ()
         {
             ResolveMVC();
+            Container.BindInstance(data).AsSingle();
             Container.BindInstance(GetComponent<MonoBehaviour>()).AsSingle();
 
             Container.BindInstance(player).AsSingle();
@@ -54,7 +58,7 @@ namespace LeandroExhumed.SpaceChaos.Session
 
         private void ResolveStage ()
         {
-            Container.Bind<IStageModel>().To<StageModel>().AsSingle();
+            Container.BindFactory<IStageModel, IStageModel.Factory>().To<StageModel>();
             Container.BindFactory<MeteorFacade, MeteorFacade.Factory>()
                 .FromComponentInNewPrefab(meteorPrefab);
             Container.BindFactory<UFOFacade, UFOFacade.Factory>()

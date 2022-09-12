@@ -762,6 +762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d70e20768af97c4b8f6c65f2a7a6b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 1a1d3a2c92206f14fad1637e2adab707, type: 2}
   player: {fileID: 4676610415342514108}
   view: {fileID: 635701214}
   gameOverMenu: {fileID: 47157108}

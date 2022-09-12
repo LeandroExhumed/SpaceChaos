@@ -8,23 +8,24 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
         public event Action<MeteorFacade> OnNewPiece;
 
         private int timesBroken = 0;
-        private int maximumPieces = 2;
 
+        private readonly MeteorData data;
         private readonly MeteorFacade.Factory meteorFactory;
 
         private readonly Transform transform;
 
-        public SplittingModel (MeteorFacade.Factory meteorFactory, Transform transform)
+        public SplittingModel (MeteorData data, MeteorFacade.Factory meteorFactory, Transform transform)
         {
+            this.data = data;
             this.meteorFactory = meteorFactory;
             this.transform = transform;
         }
 
         public void Split ()
         {
-            if (timesBroken < maximumPieces)
+            if (timesBroken < data.PieceAmount)
             {
-                for (int i = 0; i < maximumPieces; i++)
+                for (int i = 0; i < data.PieceAmount; i++)
                 {
                     MeteorFacade meteor = meteorFactory.Create();
                     meteor.Initialize(transform.position, Quaternion.Euler(UnityEngine.Random.value * 360, 90f, 0f));

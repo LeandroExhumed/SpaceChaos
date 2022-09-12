@@ -14,6 +14,9 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
         private AutoShotingType autoShotingType;
 
         [SerializeField]
+        private UFOData data;
+
+        [SerializeField]
         private float gunRotationSpeed = 8f;
         [SerializeField]
         private int rewardXP = 80;
@@ -36,6 +39,7 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
         public override void InstallBindings ()
         {
             ResolveMVC();
+            Container.BindInstance(data).AsSingle();
             Container.BindInstance(gunRotationSpeed * session.CurrentStage).AsSingle();
             Container.BindInstance(rewardXP).AsSingle();
             ResolveComponents();

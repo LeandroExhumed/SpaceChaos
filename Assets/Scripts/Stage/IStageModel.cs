@@ -1,4 +1,5 @@
 ﻿using System;
+using Zenject;
 
 namespace LeandroExhumed.SpaceChaos.Stage
 {
@@ -9,5 +10,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
         void Initialize ();
         void Begin (int startAsteroidsAmount);
         void Tick ();
+
+        public class Factory : PlaceholderFactory<IStageModel> { }
     }
 }
