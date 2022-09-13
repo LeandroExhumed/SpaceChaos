@@ -68,6 +68,8 @@ namespace LeandroExhumed.SpaceChaos.Player
         public void Reset () => movement.Reset();
         
         public void Shot () => shooter.Shot();
+
+        public void Dispose () => shooter.Dispose();
         
         public void TakeDamage () => health.TakeDamage();
         
@@ -76,6 +78,7 @@ namespace LeandroExhumed.SpaceChaos.Player
         private void OnDestroy ()
         {
             controller.Dispose();
+            Dispose();
         }
     }
 }

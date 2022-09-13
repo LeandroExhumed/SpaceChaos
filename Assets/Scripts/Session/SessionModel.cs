@@ -52,7 +52,9 @@ namespace LeandroExhumed.SpaceChaos.Session
         private void HandleStageCompleted ()
         {
             CurrentStage++;
+            stage.Dispose();
             stage = null;
+
             monoBehaviour.StartCoroutine(NextStagePassageDelayRoutine());
 
             OnStageCompleted?.Invoke();

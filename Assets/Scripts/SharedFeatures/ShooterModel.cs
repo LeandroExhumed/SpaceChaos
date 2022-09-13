@@ -43,5 +43,10 @@ namespace LeandroExhumed.SpaceChaos.Common
                 OnShot?.Invoke(); 
             }
         }
+
+        public void Dispose ()
+        {
+            pool.Remove(projectilePrefab);
+        }
     }
 }

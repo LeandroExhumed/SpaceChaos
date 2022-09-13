@@ -91,6 +91,11 @@ namespace LeandroExhumed.SpaceChaos.Pooling
             return null;
         }
 
+        public void Remove (Object prefab)
+        {
+            pools.Remove(prefab);
+        }
+
         private GameObject GetGameObject (Object instance)
         {
             GameObject gameObject = null;

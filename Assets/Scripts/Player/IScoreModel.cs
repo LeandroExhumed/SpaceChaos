@@ -4,8 +4,9 @@ namespace LeandroExhumed.SpaceChaos.Player
 {
     public interface IScoreModel
     {
-        event Action OnAdvancedScoreReached;
         event Action<int> OnScoreChanged;
+        event Action OnRewardWon;
+        event Action OnAdvancedScoreReached;
 
         int Score { get; }
 

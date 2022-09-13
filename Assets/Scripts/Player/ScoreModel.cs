@@ -6,6 +6,7 @@ namespace LeandroExhumed.SpaceChaos.Player
     public class ScoreModel : IScoreModel
     {
         public event Action<int> OnScoreChanged;
+        public event Action OnRewardWon;
         public event Action OnAdvancedScoreReached;
 
         public int Score
@@ -42,6 +43,7 @@ namespace LeandroExhumed.SpaceChaos.Player
             if (Score >= pointsToReward)
             {
                 pointsToReward += 10000;
+                OnRewardWon?.Invoke();
             }
 
             if (!isAdvanced && Score >= sessionData.AdvancedScore)

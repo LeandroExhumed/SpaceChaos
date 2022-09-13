@@ -2,7 +2,7 @@
 
 namespace LeandroExhumed.SpaceChaos.Common
 {
-    public interface IShooterModel
+    public interface IShooterModel : IDisposable
     {
         event Action OnShot;
 

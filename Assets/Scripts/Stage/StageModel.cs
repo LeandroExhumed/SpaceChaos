@@ -67,6 +67,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
         public void Initialize ()
         {
             ship.OnDeath += HandleShipDeath;
+            score.OnRewardWon += HandleRewardWon;
             score.OnAdvancedScoreReached += HandleAdvancedScoreReached;
         }
 
@@ -103,6 +104,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
             if (endedByGameOver)
             {
                 hasGameOver = true;
+                input.SetActive(true);
                 gameOverMenu.Setup(score.Score);
             }
             else
@@ -154,6 +156,8 @@ namespace LeandroExhumed.SpaceChaos.Stage
 
         public void HandleShipDeath (DeathInfo ship)
         {
+            life.LoseLife();
+
             Action onDelayOver;
             if (life.Life == 0)
             {
@@ -164,7 +168,12 @@ namespace LeandroExhumed.SpaceChaos.Stage
                 onDelayOver = () => ship.Damageable.Resurrect();
             }
 
-            monoBehaviour.StartCoroutine(PlayerRespawningDelayRoutine(onDelayOver));
+            monoBehaviour.StartCoroutine(ShipDestructionDelayRoutine(onDelayOver));
+        }
+
+        private void HandleRewardWon ()
+        {
+            life.AddLife();
         }
 
         private void HandleAdvancedScoreReached ()
@@ -212,7 +221,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
             pause.Execute();
         }
 
-        private IEnumerator PlayerRespawningDelayRoutine (Action onDelayOver)
+        private IEnumerator ShipDestructionDelayRoutine (Action onDelayOver)
         {
             yield return new WaitForSeconds(RESPAWN_DELAY);
             onDelayOver.Invoke();
@@ -221,6 +230,8 @@ namespace LeandroExhumed.SpaceChaos.Stage
         public void Dispose ()
         {
             ship.OnDeath -= HandleShipDeath;
+            score.OnRewardWon -= HandleRewardWon;
+            score.OnAdvancedScoreReached -= HandleAdvancedScoreReached;
         }
     }
 }

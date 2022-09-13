@@ -27,17 +27,12 @@ namespace LeandroExhumed.SpaceChaos.Player
 
         public void AddLife ()
         {
-            if (Life == MAX_LIFE)
-            {
-                return;
-            }
-
-            Life++;
+            Life = Math.Min(Life + 1, MAX_LIFE);
         }
 
         public void LoseLife ()
         {
-            Life--;
+            Life = Math.Max(Life - 1, 0);
         }
     }
 }

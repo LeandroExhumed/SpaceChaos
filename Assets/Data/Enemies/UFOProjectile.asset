@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 510b6d1ffee64dd4dae950ef045f21f9, type: 3}
   m_Name: UFOProjectile
   m_EditorClassIdentifier: 
-  speed: 50
+  speed: 500

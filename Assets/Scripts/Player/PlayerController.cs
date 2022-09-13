@@ -57,7 +57,7 @@ namespace LeandroExhumed.SpaceChaos.Player
             health.OnResurrection += HandleResurrection;
             life.OnLifeChanged += HandleLifeChanged;
             score.OnScoreChanged += HandleScoreChanged;
-            score.OnAdvancedScoreReached += HandleAdvancedScoreReached;
+            score.OnRewardWon += HandleRewardWon;
             view.OnUpdate += HandleUpdate;
             view.OnCollision += HandleCollision;
             view.OnInvencibleBlinkinhEffectOver += HandleInvencibleBlinkinhEffectOver;
@@ -79,9 +79,9 @@ namespace LeandroExhumed.SpaceChaos.Player
             uiView.SyncScore(points);
         }
 
-        private void HandleAdvancedScoreReached ()
+        private void HandleRewardWon ()
         {
-            life.AddLife();
+            audioProvider.PlayOneShot(SoundType.LifeGain);
         }
 
         private void HandleShot ()
@@ -93,8 +93,7 @@ namespace LeandroExhumed.SpaceChaos.Player
         {
             view.SetColliderActive(false);
             view.DisableMeshes();
-            view.PlayExplosionVFX();
-            life.LoseLife();
+            view.PlayExplosionVFX();            
             input.SetActive(false);
             audioProvider.PlayOneShot(SoundType.Explosion);
         }
@@ -147,7 +146,7 @@ namespace LeandroExhumed.SpaceChaos.Player
             health.OnResurrection -= HandleResurrection;
             life.OnLifeChanged -= HandleLifeChanged;
             score.OnScoreChanged -= HandleScoreChanged;
-            score.OnAdvancedScoreReached -= HandleAdvancedScoreReached;
+            score.OnRewardWon -= HandleRewardWon;
             view.OnUpdate -= HandleUpdate;
             view.OnCollision -= HandleCollision;
             view.OnInvencibleBlinkinhEffectOver -= HandleInvencibleBlinkinhEffectOver;
