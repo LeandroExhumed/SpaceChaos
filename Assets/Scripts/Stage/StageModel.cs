@@ -15,7 +15,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
     {
         public event Action OnCompleted;
 
-        private const float RESPAWN_DELAY = 4f;
+        private const float RESPAWN_DELAY = 3f;
 
         private int enemies;
         private bool onAdvancedScore = false;

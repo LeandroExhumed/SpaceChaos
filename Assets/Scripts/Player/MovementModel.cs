@@ -21,7 +21,7 @@ namespace LeandroExhumed.SpaceChaos.Player
             PlayerData data,
             IOffscreenDetectorModel offscreenDetector,
             Transform transform,
-            Rigidbody rigidbody) : base(offscreenDetector, transform)
+            Rigidbody rigidbody) : base(offscreenDetector, transform, rigidbody)
         {
             this.transform = transform;
             this.rigidbody = rigidbody;

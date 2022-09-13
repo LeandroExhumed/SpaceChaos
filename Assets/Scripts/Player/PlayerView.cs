@@ -11,37 +11,46 @@ namespace LeandroExhumed.SpaceChaos.Player
         public event Action OnInvencibleBlinkinhEffectOver;
 
         [SerializeField]
-        private GameObject[] meshes;
+        private Renderer[] renderers;
         [SerializeField]
         private new Collider collider;
         [SerializeField]
+        private TrailRenderer[] thrustersFire;
+        [SerializeField]
         private GameObject thrusterFire;
+
         [SerializeField]
         private GameObject explosion;
 
         [Header("Respawn")]
         [SerializeField]
-        private int timesToBlink = 10;
+        private int timesToBlink = 3;
         [SerializeField]
-        private float blinkInterval = 0.2f;
+        private float blinkInterval = 0.5f;
 
         private int timesBlinked = 0;
 
-        public void SetThrusterActive (bool value) => thrusterFire.SetActive(value);
+        public void ClearThrustersFire ()
+        {
+            for (int i = 0; i < thrustersFire.Length; i++)
+            {
+                thrustersFire[i].Clear();
+            }
+        }
 
         public void SetColliderActive (bool value) => collider.enabled = value;
 
         public void DisableMeshes ()
         {
-            for (int i = 0; i < meshes.Length; i++)
+            for (int i = 0; i < renderers.Length; i++)
             {
-                meshes[i].SetActive(false);
+                SetRenderersActive(false);
             }
         }
 
         public void PlayExplosionVFX ()
         {
-            explosion.SetActive(true);
+            Instantiate(explosion, transform.position, explosion.transform.rotation);
         }
 
         public void StartRespawnBlinking ()
@@ -61,24 +70,27 @@ namespace LeandroExhumed.SpaceChaos.Player
 
         private void SetRenderersActive (bool value)
         {
-            for (int i = 0; i < meshes.Length; i++)
+            for (int i = 0; i < renderers.Length; i++)
             {
-                meshes[i].SetActive(value);
+                renderers[i].enabled = value;
             }
         }
 
         private IEnumerator RespawnBlinkingRoutine ()
         {
+            WaitForSeconds interval = new(blinkInterval);
             while (timesBlinked < timesToBlink)
             {
-                SetRenderersActive(false);
-                yield return new WaitForSeconds(blinkInterval);
                 SetRenderersActive(true);
+                yield return interval;
+                SetRenderersActive(false);
+                yield return interval;
                 timesBlinked++;
 
                 yield return null;
             }
 
+            SetRenderersActive(true);
             timesBlinked = 0;
             OnInvencibleBlinkinhEffectOver?.Invoke();
         }

@@ -11,9 +11,12 @@ namespace LeandroExhumed.SpaceChaos.Projectile
         [SerializeField]
         private int[] targetLayers;
 
+        [SerializeField]
+        private ProjectileData data;
+
         public override void InstallBindings ()
         {
-            Container.BindInstance(speed).AsSingle();
+            Container.BindInstance(data.Speed).AsSingle();
             Container.BindInstance(targetLayers).AsSingle();
             ResolveMVC();
             ResolveComponents();

@@ -8,13 +8,17 @@ namespace LeandroExhumed.SpaceChaos.Common
         private float OffSet => transform.localScale.x / 2f;
 
         private readonly IOffscreenDetectorModel offscreenDetector;
-
         private readonly Transform transform;
+        private readonly Rigidbody rigidbody;
 
-        public OffscreenMovementModel (IOffscreenDetectorModel offscreenDetector, Transform transform)
+        public OffscreenMovementModel (
+            IOffscreenDetectorModel offscreenDetector,
+            Transform transform,
+            Rigidbody rigidbody)
         {
-            this.transform = transform;
             this.offscreenDetector = offscreenDetector;
+            this.transform = transform;
+            this.rigidbody = rigidbody;
         }
 
         public void Initialize ()
@@ -24,7 +28,7 @@ namespace LeandroExhumed.SpaceChaos.Common
 
         private void HandleOffscreen (Edge edge)
         {
-            Vector3 newPosition = transform.position;
+            Vector3 newPosition = rigidbody.position;
             switch(edge)
             {
                 case Edge.Left:
@@ -41,7 +45,7 @@ namespace LeandroExhumed.SpaceChaos.Common
                     break;
             }
 
-            transform.position = newPosition;
+            rigidbody.MovePosition(newPosition);
         }
     }
 }

@@ -2,6 +2,7 @@
 using LeandroExhumed.SpaceChaos.Common;
 using LeandroExhumed.SpaceChaos.Common.Damage;
 using LeandroExhumed.SpaceChaos.Input;
+using System.Collections;
 using UnityEngine;
 
 namespace LeandroExhumed.SpaceChaos.Player
@@ -20,6 +21,8 @@ namespace LeandroExhumed.SpaceChaos.Player
         private readonly IInput input;
         private readonly AudioProvider audioProvider;
 
+        private readonly MonoBehaviour monoBehaviour;
+
         public PlayerController (
             IMovementModel movement,
             IOffscreenDetectorModel offscreenDetector,
@@ -30,7 +33,8 @@ namespace LeandroExhumed.SpaceChaos.Player
             PlayerView view,
             PlayerUIView uiView,
             IInput input,
-            AudioProvider audioProvider)
+            AudioProvider audioProvider,
+            MonoBehaviour monoBehaviour)
         {
             this.movement = movement;
             this.offscreenDetector = offscreenDetector;
@@ -42,11 +46,12 @@ namespace LeandroExhumed.SpaceChaos.Player
             this.uiView = uiView;
             this.input = input;
             this.audioProvider = audioProvider;
+            this.monoBehaviour = monoBehaviour;
         }
 
         public void Setup ()
         {
-            movement.OnThrusterNeedChanged += HandleThrusterNeedChanged;
+            offscreenDetector.OnOffscreen += HandleOffscreen;
             shooter.OnShot += HandleShot;
             health.OnDeath += HandleDeath;
             health.OnResurrection += HandleResurrection;
@@ -57,6 +62,11 @@ namespace LeandroExhumed.SpaceChaos.Player
             view.OnCollision += HandleCollision;
             view.OnInvencibleBlinkinhEffectOver += HandleInvencibleBlinkinhEffectOver;
             input.OnShotPerformed += HandleShotPerformed;
+        }
+
+        private void HandleOffscreen (Edge obj)
+        {
+            monoBehaviour.StartCoroutine(ClearThrustersFireDelayRoutine());
         }
 
         private void HandleLifeChanged (int life)
@@ -72,11 +82,6 @@ namespace LeandroExhumed.SpaceChaos.Player
         private void HandleAdvancedScoreReached ()
         {
             life.AddLife();
-        }
-
-        private void HandleThrusterNeedChanged (bool needed)
-        {
-            view.SetThrusterActive(needed);
         }
 
         private void HandleShot ()
@@ -128,9 +133,15 @@ namespace LeandroExhumed.SpaceChaos.Player
             shooter.Shot();
         }
 
+        private IEnumerator ClearThrustersFireDelayRoutine ()
+        {
+            yield return null;
+            view.ClearThrustersFire();
+        }
+
         public void Dispose ()
         {
-            movement.OnThrusterNeedChanged -= HandleThrusterNeedChanged;
+            offscreenDetector.OnOffscreen -= HandleOffscreen;
             shooter.OnShot -= HandleShot;
             health.OnDeath -= HandleDeath;
             health.OnResurrection -= HandleResurrection;
