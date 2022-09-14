@@ -17,6 +17,7 @@ namespace LeandroExhumed.SpaceChaos
         private void Awake ()
         {
             session.Initialize();
+            session.Begin();
         }
     }
 }

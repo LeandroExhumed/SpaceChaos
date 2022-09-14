@@ -1,12 +1,9 @@
 ﻿using LeandroExhumed.SpaceChaos.Common.Damage;
 using LeandroExhumed.SpaceChaos.Enemies.Meteor;
 using LeandroExhumed.SpaceChaos.Enemies.UFO;
-using LeandroExhumed.SpaceChaos.Input;
 using LeandroExhumed.SpaceChaos.Player;
 using LeandroExhumed.SpaceChaos.Session;
-using LeandroExhumed.SpaceChaos.UI.GameOverScreen;
 using System;
-using System.Collections;
 using UnityEngine;
 
 namespace LeandroExhumed.SpaceChaos.Stage
@@ -15,59 +12,32 @@ namespace LeandroExhumed.SpaceChaos.Stage
     {
         public event Action OnCompleted;
 
-        private const float RESPAWN_DELAY = 3f;
-
         private int enemies;
-        private bool onAdvancedScore = false;
-        private bool hasGameOver = false;
+        private bool onAdvancedScore = false;        
 
         private float timer = 0;
 
         private readonly SessionData sessionData;
 
-        private readonly Pause pause;
-
         private readonly IAsteroindSpawningModel asteroindSpawning;
         private readonly UFOFactory ufoFactory;
 
-        private readonly IDamageableModel ship;
-        private readonly ILifeModel life;
         private readonly IScoreModel score;
-
-        private readonly IGameOverMenuModel gameOverMenu;
-
-        private readonly IInput input;
-
-        private readonly MonoBehaviour monoBehaviour;
 
         public StageModel (
             SessionData sessionData,
-            Pause pause,
             IAsteroindSpawningModel asteroindSpawning,
             UFOFactory ufoFactory,
-            IDamageableModel ship,
-            ILifeModel life,
-            IScoreModel score,
-            IGameOverMenuModel gameOverMenu,
-            IInput input,
-            MonoBehaviour monoBehaviour)
+            IScoreModel score)
         {
             this.sessionData = sessionData;
-            this.pause = pause;
             this.asteroindSpawning = asteroindSpawning;
             this.ufoFactory = ufoFactory;
-            this.ship = ship;
-            this.life = life;
             this.score = score;
-            this.gameOverMenu = gameOverMenu;
-            this.input = input;
-            this.monoBehaviour = monoBehaviour;
         }
 
         public void Initialize ()
         {
-            ship.OnDeath += HandleShipDeath;
-            score.OnRewardWon += HandleRewardWon;
             score.OnAdvancedScoreReached += HandleAdvancedScoreReached;
         }
 
@@ -78,8 +48,6 @@ namespace LeandroExhumed.SpaceChaos.Stage
                 MeteorFacade meteor = asteroindSpawning.Spawn();
                 RegisterMeteor(meteor);
             }
-
-            input.OnPausePerformed += HandlePausePerformed;
         }
 
         public void Tick ()
@@ -96,21 +64,6 @@ namespace LeandroExhumed.SpaceChaos.Stage
             }
 
             timer += Time.deltaTime;
-        }
-
-        private void End (bool endedByGameOver)
-        {
-            input.OnPausePerformed -= HandlePausePerformed;
-            if (endedByGameOver)
-            {
-                hasGameOver = true;
-                input.SetActive(true);
-                gameOverMenu.Setup(score.Score);
-            }
-            else
-            {
-                OnCompleted?.Invoke();
-            }
         }
 
         private void RegisterMeteor (MeteorFacade meteor)
@@ -141,7 +94,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
             else
             {
                 float probability = UnityEngine.Random.value;
-                if (probability > 0.5f)
+                if (probability > sessionData.UfoSpawningProbability)
                 {
                     ufo = ufoFactory.Spawn(UFOType.Big);
                 }
@@ -152,28 +105,6 @@ namespace LeandroExhumed.SpaceChaos.Stage
             }
 
             RegisterUFO(ufo);
-        }
-
-        public void HandleShipDeath (DeathInfo ship)
-        {
-            life.LoseLife();
-
-            Action onDelayOver;
-            if (life.Life == 0)
-            {
-                onDelayOver = () => End(true);
-            }
-            else
-            {
-                onDelayOver = () => ship.Damageable.Resurrect();
-            }
-
-            monoBehaviour.StartCoroutine(ShipDestructionDelayRoutine(onDelayOver));
-        }
-
-        private void HandleRewardWon ()
-        {
-            life.AddLife();
         }
 
         private void HandleAdvancedScoreReached ()
@@ -199,38 +130,15 @@ namespace LeandroExhumed.SpaceChaos.Stage
 
         private void RemoveEnemy ()
         {
-            if (hasGameOver)
-            {
-                return;
-            }
-
             enemies--;
             if (enemies == 0)
             {
-                End(false);
+                OnCompleted?.Invoke();
             }
-        }
-
-        private void HandlePausePerformed ()
-        {
-            if (Time.timeScale == 0)
-            {
-                return;
-            }
-
-            pause.Execute();
-        }
-
-        private IEnumerator ShipDestructionDelayRoutine (Action onDelayOver)
-        {
-            yield return new WaitForSeconds(RESPAWN_DELAY);
-            onDelayOver.Invoke();
         }
 
         public void Dispose ()
         {
-            ship.OnDeath -= HandleShipDeath;
-            score.OnRewardWon -= HandleRewardWon;
             score.OnAdvancedScoreReached -= HandleAdvancedScoreReached;
         }
     }

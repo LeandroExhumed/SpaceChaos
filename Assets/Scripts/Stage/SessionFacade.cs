@@ -16,6 +16,11 @@ namespace LeandroExhumed.SpaceChaos.Session
             add => model.OnNewStageStarted += value;
             remove => model.OnNewStageStarted -= value;
         }
+        public event Action OnGameOver
+        {
+            add => model.OnGameOver += value;
+            remove => model.OnGameOver -= value;
+        }
 
         public int CurrentStage => model.CurrentStage;
 
@@ -35,17 +40,19 @@ namespace LeandroExhumed.SpaceChaos.Session
             model.Initialize();
         }
 
-        public void Tick () => model.Tick();
+        public void Begin () => model.Begin();
 
-        private void OnDestroy ()
-        {
-            Dispose();
-        }
+        public void Tick () => model.Tick();
 
         public void Dispose ()
         {
             model.Dispose();
             controller.Dispose();
+        }
+
+        private void OnDestroy ()
+        {
+            Dispose();
         }
     }
 }

@@ -25,13 +25,19 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
         }
 
         private IRouteMovement routeMovement;
+        private IShooterModel shooter;
         private IDamageableModel health;
         private IController controller;
 
         [Inject]
-        public void Constructor (IRouteMovement routeMovement, IDamageableModel health, IController controller)
+        public void Constructor (
+            IRouteMovement routeMovement,
+            IShooterModel shooter,
+            IDamageableModel health,
+            IController controller)
         {
             this.routeMovement = routeMovement;
+            this.shooter = shooter;
             this.health = health;
             this.controller = controller;
         }
@@ -52,6 +58,7 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
         private void OnDestroy ()
         {
             controller.Dispose();
+            shooter.Dispose();
         }       
 
         public class Factory : PlaceholderFactory<UFOFacade> { }
