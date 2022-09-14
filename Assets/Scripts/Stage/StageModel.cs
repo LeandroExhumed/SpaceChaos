@@ -19,14 +19,14 @@ namespace LeandroExhumed.SpaceChaos.Stage
 
         private readonly SessionData sessionData;
 
-        private readonly IAsteroindSpawningModel asteroindSpawning;
+        private readonly MeteorFactory asteroindSpawning;
         private readonly UFOFactory ufoFactory;
 
         private readonly IScoreModel score;
 
         public StageModel (
             SessionData sessionData,
-            IAsteroindSpawningModel asteroindSpawning,
+            MeteorFactory asteroindSpawning,
             UFOFactory ufoFactory,
             IScoreModel score)
         {

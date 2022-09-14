@@ -65,7 +65,7 @@ namespace LeandroExhumed.SpaceChaos.Session
                 .FromComponentInNewPrefab(smallUFOPrefab);
             Container.BindFactory<UFOFacade, UFOFacade.Factory>()
                 .FromComponentInNewPrefab(bigUFOPrefab);
-            Container.Bind<IAsteroindSpawningModel>().To<AsteroindSpawningModel>().AsSingle();
+            Container.Bind<MeteorFactory>().AsSingle();
             Container.Bind<UFOFactory>().AsSingle();
         }
     }

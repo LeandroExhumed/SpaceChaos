@@ -3,10 +3,8 @@ using UnityEngine;
 
 namespace LeandroExhumed.SpaceChaos.Enemies.UFO
 {
-    public class UFOFactory
+    public class UFOFactory : EnemyFactory
     {
-        private const float SAFE_SPAWN_RADIUS = 2F;
-
         private readonly UFOFacade.Factory[] meteorFactory;
 
         public UFOFactory (UFOFacade.Factory[] meteorFactory)
@@ -17,22 +15,14 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
         public UFOFacade Spawn (UFOType type)
         {
             UFOFacade meteor = meteorFactory[(int)type].Create();
-            meteor.Initialize(GetRandomPosition());
+            meteor.Initialize(TryGetSafePosition());
 
             return meteor;
         }
 
-        private Vector3 GetRandomPosition ()
+        protected override Vector3 GetRandomPosition ()
         {
-            Vector3 randomPosition;
-
-            do
-            {
-                randomPosition = new Vector3(ScreenPositions.LeftLimit, ScreenPositions.RandomYPosition, 0f);
-            } while (Physics.OverlapSphere(randomPosition, SAFE_SPAWN_RADIUS).Length > 0);
-
-
-            return randomPosition;
+            return new Vector3(ScreenPositions.LeftLimit, ScreenPositions.RandomYPosition, 0f);
         }
     }
 
