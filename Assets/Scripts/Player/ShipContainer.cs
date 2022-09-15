@@ -18,6 +18,7 @@ namespace LeandroExhumed.SpaceChaos.Player
 
         public override void InstallBindings ()
         {
+            Container.BindInstance(GetInstanceID().ToString()).AsSingle();
             Container.BindInstance(data).AsSingle();
             ResolveMVC();
             ResolveComponents();

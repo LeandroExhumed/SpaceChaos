@@ -7,6 +7,13 @@ namespace LeandroExhumed.SpaceChaos.Common.Damage
         public event Action<DeathInfo> OnDeath;
         public event Action OnResurrection;
 
+        protected readonly string instanceID;
+
+        public Health (string instanceID)
+        {
+            this.instanceID = instanceID;
+        }
+
         public void TakeDamage ()
         {
             OnDeath?.Invoke(GetDeathInfo());
@@ -19,7 +26,7 @@ namespace LeandroExhumed.SpaceChaos.Common.Damage
 
         protected virtual DeathInfo GetDeathInfo ()
         {
-            return new DeathInfo(this);
+            return new DeathInfo(instanceID);
         }
     }
 }

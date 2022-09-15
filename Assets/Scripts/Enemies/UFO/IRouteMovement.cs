@@ -6,7 +6,7 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
 {
     public interface IRouteMovement
     {
-        event Action OnLeaving;
+        event Action<string> OnLeaving;
 
         void Initialize (Vector3 position);
         void Tick ();

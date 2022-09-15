@@ -39,6 +39,7 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
         public override void InstallBindings ()
         {
             ResolveMVC();
+            Container.BindInstance(GetInstanceID().ToString()).AsSingle();
             Container.BindInstance(data).AsSingle();
             Container.BindInstance(gunRotationSpeed * session.CurrentStage).AsSingle();
             Container.BindInstance(rewardXP).AsSingle();

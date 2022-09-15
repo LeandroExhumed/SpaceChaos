@@ -1,9 +1,12 @@
 ﻿using LeandroExhumed.SpaceChaos.Common.Damage;
+using LeandroExhumed.SpaceChaos.Enemies;
 using LeandroExhumed.SpaceChaos.Enemies.Meteor;
 using LeandroExhumed.SpaceChaos.Enemies.UFO;
 using LeandroExhumed.SpaceChaos.Player;
 using LeandroExhumed.SpaceChaos.Session;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace LeandroExhumed.SpaceChaos.Stage
@@ -12,7 +15,7 @@ namespace LeandroExhumed.SpaceChaos.Stage
     {
         public event Action OnCompleted;
 
-        private int enemies;
+        private readonly List<EnemyFacade> enemies = new();
         private bool onAdvancedScore = false;        
 
         private float timer = 0;
@@ -78,10 +81,10 @@ namespace LeandroExhumed.SpaceChaos.Stage
             ufo.OnLeaving += HandleUFOLeaving;
         }
 
-        private void RegisterEnemy (IDamageableModel enemy)
+        private void RegisterEnemy (EnemyFacade enemy)
         {
             enemy.OnDeath += HandleEnemyDeath;
-            enemies++;
+            enemies.Add(enemy);
         }
 
         private void CreateUFO ()
@@ -117,29 +120,45 @@ namespace LeandroExhumed.SpaceChaos.Stage
             RegisterMeteor(piece);
         }
 
-        private void HandleUFOLeaving ()
+        private void HandleUFOLeaving (string instanceID)
         {
-            RemoveEnemy();
+            RemoveEnemy(instanceID);
         }
 
         private void HandleEnemyDeath (DeathInfo deathInfo)
         {            
             score.AddPoints(deathInfo.XPReward);
-            RemoveEnemy();
+            RemoveEnemy(deathInfo.InstanceID);
         }
 
-        private void RemoveEnemy ()
+        private void RemoveEnemy (string instanceID)
         {
-            enemies--;
-            if (enemies == 0)
+            EnemyFacade enemy = enemies.First(x => x.InstanceID == instanceID);
+            RemoveEnemyListeners(enemy);
+
+            enemies.Remove(enemy);
+            if (enemies.Count == 0)
             {
                 OnCompleted?.Invoke();
+            }
+        }
+
+        private void RemoveEnemyListeners (EnemyFacade enemy)
+        {
+            enemy.OnDeath -= HandleEnemyDeath;
+            if (enemy is UFOFacade ufo)
+            {
+                ufo.OnLeaving -= HandleUFOLeaving;
             }
         }
 
         public void Dispose ()
         {
             score.OnAdvancedScoreReached -= HandleAdvancedScoreReached;
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                RemoveEnemyListeners(enemies[i]);
+            }
         }
     }
 }

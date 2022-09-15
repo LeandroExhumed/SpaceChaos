@@ -7,7 +7,9 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
 {
     public class RouteMovement : IRouteMovement
     {
-        public event Action OnLeaving;
+        public event Action<string> OnLeaving;
+
+        private readonly string instanceID;
 
         private Vector3 randomPosition;
 
@@ -15,8 +17,9 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
         private readonly IOffscreenDetectorModel offscreenDetector;
         private readonly Transform transform;
 
-        public RouteMovement (UFOData data, IOffscreenDetectorModel offscreenDetector, Transform transform)
+        public RouteMovement (string instanceID, UFOData data, IOffscreenDetectorModel offscreenDetector, Transform transform)
         {
+            this.instanceID = instanceID;
             this.data = data;
             this.offscreenDetector = offscreenDetector;
             this.transform = transform;
@@ -44,7 +47,7 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
 
         private void OnOffscreen (Edge edge)
         {
-            OnLeaving?.Invoke();
+            OnLeaving?.Invoke(instanceID);
         }
 
         private void DefineNewDestination ()

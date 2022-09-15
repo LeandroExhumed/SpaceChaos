@@ -2,12 +2,12 @@
 {
     public struct DeathInfo
     {
-        public IDamageableModel Damageable { get; private set; }
+        public string InstanceID { get; private set; }
         public int XPReward { get; private set; }
 
-        public DeathInfo (IDamageableModel instanceID, int xPReward = 0)
+        public DeathInfo (string instanceID, int xPReward = 0)
         {
-            Damageable = instanceID;
+            InstanceID = instanceID;
             XPReward = xPReward;
         }
     }

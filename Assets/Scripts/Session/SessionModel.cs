@@ -19,7 +19,6 @@ namespace LeandroExhumed.SpaceChaos.Session
 
         private const float TIME_TO_NEXT_STAGE = 3f;
         private const float RESPAWN_DELAY = 3f;
-        private bool hasGameOver = false;
 
         private readonly SessionData data;
         private readonly IStageModel.Factory stageFactory;
@@ -82,12 +81,11 @@ namespace LeandroExhumed.SpaceChaos.Session
 
         private void End ()
         {
-            hasGameOver = true;
             gameOverMenu.Setup(score.Score);
             OnGameOver?.Invoke();
         }
 
-        private void HandleShipDeath (DeathInfo ship)
+        private void HandleShipDeath (DeathInfo _)
         {
             life.LoseLife();
 
@@ -98,7 +96,7 @@ namespace LeandroExhumed.SpaceChaos.Session
             }
             else
             {
-                onDelayOver = () => ship.Damageable.Resurrect();
+                onDelayOver = () => ship.Resurrect();
             }
 
             monoBehaviour.StartCoroutine(ShipDestructionDelayRoutine(onDelayOver));

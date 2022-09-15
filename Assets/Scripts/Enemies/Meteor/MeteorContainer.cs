@@ -18,6 +18,7 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
         public override void InstallBindings ()
         {
             ResolveMVC();
+            Container.BindInstance(GetInstanceID().ToString()).AsSingle();
             Container.BindInstance(data).AsSingle();
             Container.BindInstance(data.Speed).AsSingle();
             Container.BindInstance(data.RewardPoints).AsSingle();

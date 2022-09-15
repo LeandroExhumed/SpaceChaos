@@ -6,19 +6,9 @@ using Zenject;
 
 namespace LeandroExhumed.SpaceChaos.Enemies.UFO
 {
-    public class UFOFacade : MonoBehaviour, IDamageableModel, IRouteMovement
-    {
-        public event Action<DeathInfo> OnDeath
-        {
-            add => health.OnDeath += value;
-            remove => health.OnDeath -= value;
-        }
-        public event Action OnResurrection
-        {
-            add => health.OnResurrection += value;
-            remove => health.OnResurrection -= value;
-        }
-        public event Action OnLeaving
+    public class UFOFacade : EnemyFacade, IRouteMovement
+    {        
+        public event Action<string> OnLeaving
         {
             add => routeMovement.OnLeaving += value;
             remove => routeMovement.OnLeaving -= value;
@@ -26,38 +16,28 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
 
         private IRouteMovement routeMovement;
         private IShooterModel shooter;
-        private IDamageableModel health;
-        private IController controller;
 
         [Inject]
         public void Constructor (
             IRouteMovement routeMovement,
             IShooterModel shooter,
+            string instanceID,
             IDamageableModel health,
             IController controller)
         {
+            Constructor(instanceID, health, controller);
+
             this.routeMovement = routeMovement;
             this.shooter = shooter;
-            this.health = health;
-            this.controller = controller;
-        }
-
-        private void Start ()
-        {
-            controller.Setup();
         }
 
         public void Initialize (Vector3 position) => routeMovement.Initialize(position);
 
         public void Tick () => routeMovement.Tick();
 
-        public void TakeDamage () => health.TakeDamage();
-
-        public void Resurrect () => health.Resurrect();
-
-        private void OnDestroy ()
+        protected override void OnDestroy ()
         {
-            controller.Dispose();
+            base.OnDestroy();
             shooter.Dispose();
         }       
 

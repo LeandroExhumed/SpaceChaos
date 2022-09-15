@@ -6,14 +6,14 @@ namespace LeandroExhumed.SpaceChaos.Enemies
     {
         private readonly int xpReward;
 
-        public EnemyHealth (int xpReward)
+        public EnemyHealth (string instanceID, int xpReward) : base (instanceID)
         {
             this.xpReward = xpReward;
         }
 
         protected override DeathInfo GetDeathInfo ()
         {
-            return new DeathInfo(this, xpReward);
+            return new DeathInfo(instanceID, xpReward);
         }
     }
 }

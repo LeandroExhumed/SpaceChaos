@@ -39,7 +39,7 @@ namespace LeandroExhumed.SpaceChaos.Enemies.UFO
             view.OnCollision += HandleCollision;
         }
 
-        private void HandleLeaving ()
+        private void HandleLeaving (string _)
         {
             view.Destroy();
         }
