@@ -7,9 +7,9 @@ namespace LeandroExhumed.SpaceChaos.UI.PauseMenu
     public class PauseMenuModel : NavigableModel, IPauseMenuModel
     {
         private const string RESTART_CONFIRMATION_TITLE = "RESTART";
-        private const string RESTART_CONFIRMATION_MESSAGE = "RESTART_CONF_MESSAGE";
-        private const string QUIT_TO_MAIN_MENU_CONFIRMATION_TITLE = "MAIN_MENU";
-        private const string QUIT_TO_MAIN_MENU_CONFIRMATION_MESSAGE = "MAIN_MENU_CONF_MESSAGE";
+        private const string RESTART_CONFIRMATION_MESSAGE = "ARE YOU SURE YOU WANT TO RESTART CURRENT GAME?";
+        private const string QUIT_TO_MAIN_MENU_CONFIRMATION_TITLE = "MAIN MENU";
+        private const string QUIT_TO_MAIN_MENU_CONFIRMATION_MESSAGE = "ARE YOU SURE YOU WANT TO QUIT TO MAIN MENU?";
 
         private readonly INavigationFlowModel navigationFlow;
         private readonly INavigableModel instructionScreen;
