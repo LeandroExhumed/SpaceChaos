@@ -18,10 +18,16 @@ namespace LeandroExhumed.SpaceChaos.Common
             this.collider = collider;
         }
 
-        public virtual void Initialize (Vector3 position, Quaternion rotation, Collider owner = null)
+        public virtual void Initialize (Vector3? position, Quaternion? rotation, Collider owner = null)
         {
-            transform.position = position;
-            transform.rotation = rotation;
+            if (position != null)
+            {
+                transform.position = position.Value; 
+            }
+            if (rotation != null)
+            {
+                transform.rotation = rotation.Value; 
+            }
 
             if (owner != null)
             {

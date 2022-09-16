@@ -34,7 +34,7 @@ namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
             this.splitting = splitting;
         }
 
-        public void Initialize (Vector3 position, Quaternion rotation, Collider owner = null)
+        public void Initialize (Vector3? position, Quaternion? rotation, Collider owner = null)
         {
             launchable.Initialize(position, rotation, owner);
             offscreenMovement.Initialize();

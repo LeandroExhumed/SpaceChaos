@@ -21,7 +21,7 @@ namespace LeandroExhumed.SpaceChaos.Projectile
             this.offscreenDetector = offscreenDetector;
         }
 
-        public override void Initialize (Vector3 position, Quaternion rotation, Collider owner = null)
+        public override void Initialize (Vector3? position, Quaternion? rotation, Collider owner = null)
         {
             base.Initialize(position, rotation, owner);
             offscreenDetector.OnOffscreen += OnOffscreen;

@@ -1,9 +1,7 @@
 ﻿using LeandroExhumed.SpaceChaos.Constants;
-using LeandroExhumed.SpaceChaos.Enemies;
-using LeandroExhumed.SpaceChaos.Enemies.Meteor;
 using UnityEngine;
 
-namespace LeandroExhumed.SpaceChaos.Stage
+namespace LeandroExhumed.SpaceChaos.Enemies.Meteor
 {
     public class MeteorFactory : EnemyFactory
     {

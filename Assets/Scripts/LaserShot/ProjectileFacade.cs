@@ -29,7 +29,7 @@ namespace LeandroExhumed.SpaceChaos.Projectile
 
             controller.Setup();
         }
-        public void Initialize (Vector3 position, Quaternion rotation, Collider owner = null)
+        public void Initialize (Vector3? position, Quaternion? rotation, Collider owner = null)
             => model.Initialize(position, rotation, owner);
 
         public void GetLaunched () => model.GetLaunched();
