@@ -1,7 +1,7 @@
 ﻿using LeandroExhumed.SpaceChaos.Common;
 using LeandroExhumed.SpaceChaos.Common.Damage;
 using LeandroExhumed.SpaceChaos.Player;
-using LeandroExhumed.SpaceChaos.Pooling;
+using LeandroExhumed.SpaceChaos.Services.Pooling;
 using LeandroExhumed.SpaceChaos.Session;
 using UnityEngine;
 using Zenject;

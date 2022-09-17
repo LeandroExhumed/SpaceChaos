@@ -414,6 +414,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2096210139}
     m_Modifications:
+    - target: {fileID: 591543951562589702, guid: cfac997ef5e8a694689bee8881824b0c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2032098562773463861, guid: cfac997ef5e8a694689bee8881824b0c,
         type: 3}
       propertyPath: m_text
@@ -1590,7 +1595,7 @@ GameObject:
   - component: {fileID: 833368835}
   - component: {fileID: 833368834}
   m_Layer: 0
-  m_Name: Application
+  m_Name: Gameplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

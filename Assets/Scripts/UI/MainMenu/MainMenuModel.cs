@@ -1,4 +1,5 @@
-﻿using LeandroExhumed.UI.Navigation;
+﻿using LeandroExhumed.SpaceChaos.Services;
+using LeandroExhumed.UI.Navigation;
 
 namespace LeandroExhumed.SpaceChaos.UI.MainMenu
 {

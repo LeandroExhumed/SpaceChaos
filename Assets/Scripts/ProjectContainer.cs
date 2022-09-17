@@ -1,6 +1,6 @@
-using LeandroExhumed.SpaceChaos.Audio;
 using LeandroExhumed.SpaceChaos.Input;
-using LeandroExhumed.SpaceChaos.Pooling;
+using LeandroExhumed.SpaceChaos.Services.Audio;
+using LeandroExhumed.SpaceChaos.Services.Pooling;
 using LeandroExhumed.UI.Navigation;
 using UnityEngine;
 using Zenject;

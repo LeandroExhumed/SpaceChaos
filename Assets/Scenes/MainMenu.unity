@@ -1050,6 +1050,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1515533424}
     m_Modifications:
+    - target: {fileID: 591543951562589702, guid: cfac997ef5e8a694689bee8881824b0c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251152068029531381, guid: cfac997ef5e8a694689bee8881824b0c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5061623919119475136, guid: cfac997ef5e8a694689bee8881824b0c,
         type: 3}
       propertyPath: _monoInstallers.Array.size

@@ -1,5 +1,5 @@
 ﻿using LeandroExhumed.SpaceChaos.Common;
-using LeandroExhumed.SpaceChaos.Pooling;
+using LeandroExhumed.SpaceChaos.Services.Pooling;
 
 namespace LeandroExhumed.SpaceChaos.Projectile
 {

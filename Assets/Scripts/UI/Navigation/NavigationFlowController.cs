@@ -1,5 +1,5 @@
-using LeandroExhumed.SpaceChaos.Audio;
 using LeandroExhumed.SpaceChaos.Input;
+using LeandroExhumed.SpaceChaos.Services.Audio;
 using System;
 
 namespace LeandroExhumed.UI.Navigation

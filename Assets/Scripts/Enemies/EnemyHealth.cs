@@ -2,7 +2,7 @@
 
 namespace LeandroExhumed.SpaceChaos.Enemies
 {
-    public class EnemyHealth : Health
+    public class EnemyHealth : HealthModel
     {
         private readonly int xpReward;
 

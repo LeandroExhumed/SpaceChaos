@@ -1,7 +1,7 @@
-﻿using LeandroExhumed.SpaceChaos.Audio;
-using LeandroExhumed.SpaceChaos.Common;
+﻿using LeandroExhumed.SpaceChaos.Common;
 using LeandroExhumed.SpaceChaos.Common.Damage;
 using LeandroExhumed.SpaceChaos.Input;
+using LeandroExhumed.SpaceChaos.Services.Audio;
 using System.Collections;
 using UnityEngine;
 

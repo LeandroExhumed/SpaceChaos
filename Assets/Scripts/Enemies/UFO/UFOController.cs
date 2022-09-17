@@ -1,6 +1,6 @@
-﻿using LeandroExhumed.SpaceChaos.Audio;
-using LeandroExhumed.SpaceChaos.Common;
+﻿using LeandroExhumed.SpaceChaos.Common;
 using LeandroExhumed.SpaceChaos.Common.Damage;
+using LeandroExhumed.SpaceChaos.Services.Audio;
 using UnityEngine;
 
 namespace LeandroExhumed.SpaceChaos.Enemies.UFO

@@ -1,6 +1,6 @@
 using LeandroExhumed.SpaceChaos.Common;
 using LeandroExhumed.SpaceChaos.Common.Damage;
-using LeandroExhumed.SpaceChaos.Pooling;
+using LeandroExhumed.SpaceChaos.Services.Pooling;
 using UnityEngine;
 using Zenject;
 
@@ -30,7 +30,7 @@ namespace LeandroExhumed.SpaceChaos.Player
             Container.Bind<IMovementModel>().To<MovementModel>().AsSingle();
             Container.Bind<IOffscreenDetectorModel>().To<OffscreenDetectorModel>().AsSingle();
             Container.Bind<IShooterModel>().To<ShooterModel>().AsSingle();
-            Container.Bind<IDamageableModel>().To<Health>().AsSingle();
+            Container.Bind<IDamageableModel>().To<HealthModel>().AsSingle();
             Container.Bind<IController>().To<PlayerController>().AsSingle();
             Container.BindInstance(GetComponentInChildren<PlayerView>()).AsSingle();
         }

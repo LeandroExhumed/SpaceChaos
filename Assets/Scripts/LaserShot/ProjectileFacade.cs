@@ -1,4 +1,4 @@
-﻿using LeandroExhumed.SpaceChaos.Pooling;
+﻿using LeandroExhumed.SpaceChaos.Services.Pooling;
 using System;
 using UnityEngine;
 using Zenject;
